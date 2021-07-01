@@ -1,15 +1,30 @@
 import logo from "../assets/icons/logo.svg"
-import { Form, Input, Button } from "antd"
+import { Form, Input, Button, notification } from "antd"
 import styles from "../styles/LandingPage.module.css"
-import { useCallback } from "react"
+import { useContext } from "react"
+import { AuthContext } from "../contexts"
 
 export default function LandingPage() {
+  const { login } = useContext(AuthContext)
   const [form] = Form.useForm()
 
+  const showLoginError = (message) => {
+    notification["error"]({
+      message: "Login Failed",
+      description: message,
+    })
+  }
+
   // When user clicks "login"
-  const onFinish = useCallback((values) => {
-    console.log("Finish:", values)
-  }, [])
+  const onFinish = async (values) => {
+    const { username, password } = values
+
+    try {
+      await login(username, password)
+    } catch (err) {
+      showLoginError(err.message)
+    }
+  }
 
   return (
     <div className={styles.LandingPage}>
@@ -54,7 +69,6 @@ export default function LandingPage() {
                 type="primary"
                 htmlType="submit"
                 disabled={
-                  !form.isFieldsTouched(true) ||
                   !!form.getFieldsError().filter(({ errors }) => errors.length)
                     .length
                 }

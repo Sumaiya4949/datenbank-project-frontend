@@ -1,12 +1,22 @@
 import LandingPage from "./routes/LandingPage"
 import useAuth from "./hooks/useAuth"
+import { AuthContext } from "./contexts"
 
 function App() {
-  const loggedInUser = useAuth()
+  const auth = useAuth()
 
-  if (!loggedInUser) return <LandingPage />
+  if (!auth.loggedInUser)
+    return (
+      <AuthContext.Provider value={auth}>
+        <LandingPage />
+      </AuthContext.Provider>
+    )
 
-  return <>You are logged in</>
+  return (
+    <AuthContext.Provider value={auth}>
+      <LandingPage />
+    </AuthContext.Provider>
+  )
 }
 
 export default App

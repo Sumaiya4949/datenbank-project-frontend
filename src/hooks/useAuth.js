@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 export default function useAuth() {
   const [loggedInUser, setLoggedInUser] = useState(null)
 
-  return loggedInUser
+  const login = useCallback((username, password) => {
+    throw new Error("meow")
+  }, [])
+
+  return { loggedInUser, login }
 }
