@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg"
+import "./App.css"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+
+        <h2>Grading System Management</h2>
+
+        <p className="App-desc">
+          A full stack web application for digital management of students'
+          grades and subjects in different classes in a school, along with
+          additional management functionalities of admins and teachers.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -3,8 +3,14 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
+}
+
+.App-desc {
+  max-width: 70vw;
+  font-size: 1.3rem;
+  line-height: 3rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
