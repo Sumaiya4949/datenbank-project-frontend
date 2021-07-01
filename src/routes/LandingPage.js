@@ -24,7 +24,13 @@ export default function LandingPage() {
         </p>
 
         {/* Login Form */}
-        <Form form={form} name="login_form" layout="inline" onFinish={onFinish}>
+        <Form
+          form={form}
+          name="login_form"
+          layout="inline"
+          onFinish={onFinish}
+          size="large"
+        >
           {/* Username Input */}
           <Form.Item
             name="username"
