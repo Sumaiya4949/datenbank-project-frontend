@@ -5,7 +5,7 @@ import { useContext } from "react"
 import { AuthContext } from "../contexts"
 
 export default function LandingPage() {
-  const { login } = useContext(AuthContext)
+  const { login, isRequesting } = useContext(AuthContext)
   const [form] = Form.useForm()
 
   const showLoginError = (message) => {
@@ -68,6 +68,7 @@ export default function LandingPage() {
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={isRequesting}
                 disabled={
                   !!form.getFieldsError().filter(({ errors }) => errors.length)
                     .length
