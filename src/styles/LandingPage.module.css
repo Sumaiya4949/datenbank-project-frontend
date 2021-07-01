@@ -11,6 +11,7 @@
   max-width: 70vw;
   font-size: 1.3rem;
   line-height: 3rem;
+  color: #808080;
 }
 
 @media (prefers-reduced-motion: no-preference) {
