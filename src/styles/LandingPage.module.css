@@ -1,25 +1,25 @@
-.App {
+.LandingPage {
   text-align: center;
 }
 
-.App-logo {
+.logo {
   height: 20vmin;
   pointer-events: none;
 }
 
-.App-desc {
+.description {
   max-width: 70vw;
   font-size: 1.3rem;
   line-height: 3rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
+.header {
   background-color: #e3e6ff;
   min-height: 100vh;
   display: flex;
@@ -29,7 +29,7 @@
   font-size: calc(10px + 2vmin);
 }
 
-.App-link {
+.link {
   color: #61dafb;
 }
 
