@@ -8,6 +8,7 @@ import { Layout, Button, notification } from "antd"
 import { useCallback } from "react"
 import AppSideNavPupil from "./components/pupil/AppSideNavPupil"
 import RouteBreadcrumbs from "./components/RouteBreadcrumbs"
+import AppSideNavAdmin from "./components/admin/AppSideNavAdmin"
 
 const { Header, Content } = Layout
 
@@ -59,7 +60,13 @@ function App() {
         </Header>
 
         <Layout>
-          {role === "pupil" ? <AppSideNavPupil /> : false}
+          {role === "pupil" ? (
+            <AppSideNavPupil />
+          ) : role === "admin" ? (
+            <AppSideNavAdmin />
+          ) : (
+            false
+          )}
 
           <Layout style={{ padding: "0 24px 24px" }}>
             <RouteBreadcrumbs />
