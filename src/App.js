@@ -5,6 +5,8 @@ import { AuthContext } from "./contexts"
 function App() {
   const auth = useAuth()
 
+  console.log(auth)
+
   if (!auth.loggedInUser)
     return (
       <AuthContext.Provider value={auth}>
@@ -13,9 +15,7 @@ function App() {
     )
 
   return (
-    <AuthContext.Provider value={auth}>
-      <LandingPage />
-    </AuthContext.Provider>
+    <AuthContext.Provider value={auth}>You are logged in</AuthContext.Provider>
   )
 }
 
