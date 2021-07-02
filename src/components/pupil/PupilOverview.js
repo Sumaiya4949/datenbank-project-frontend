@@ -1,10 +1,28 @@
-import { Descriptions, Tag, Row, Col, Statistic } from "antd"
+import { useQuery } from "@apollo/client"
+import { Descriptions, Tag } from "antd"
+import { QUERY_PUPIL_OVERVIEW } from "../../queries"
+import Loader from "../Loader"
 
 const Item = Descriptions.Item
 
 export default function PupilOverview(props) {
   const { pupil } = props
+
   const { surname, forename, id, username, role } = pupil
+
+  const { error, data, loading } = useQuery(QUERY_PUPIL_OVERVIEW, {
+    variables: { id },
+  })
+
+  if (loading) return <Loader />
+
+  if (error) return "Error"
+
+  const { appearsIn, subjects } = data?.pupil
+
+  const avgGrade =
+    appearsIn.map((item) => item.score).reduce((x, y) => x + y) /
+    appearsIn.length
 
   return (
     <Descriptions
@@ -30,13 +48,13 @@ export default function PupilOverview(props) {
         <Tag color={"green"}>{role} account</Tag>
       </Item>
       <Item label="Total Subjects" span={1}>
-        10
+        {subjects.length || 0}
       </Item>
       <Item label="Tests Taken" span={1}>
-        12
+        {appearsIn.length || 0}
       </Item>
       <Item label="Average Grade" span={1}>
-        12%
+        {avgGrade}%
       </Item>
     </Descriptions>
   )

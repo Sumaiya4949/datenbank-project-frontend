@@ -39,3 +39,18 @@ export const QUERY_PUPIL_TESTS_OF_A_SUBJECT = gql`
     }
   }
 `
+
+export const QUERY_PUPIL_OVERVIEW = gql`
+  query PupilSummary($id: ID!) {
+    pupil(id: $id) {
+      id
+      subjects {
+        id
+      }
+      appearsIn {
+        id
+        score
+      }
+    }
+  }
+`
