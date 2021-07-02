@@ -6,7 +6,12 @@ import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
 import UserCard from "./components/UserCard"
 import { Layout, Menu, Breadcrumb, Button, notification } from "antd"
-import { UserOutlined, LaptopOutlined } from "@ant-design/icons"
+import {
+  UserOutlined,
+  LaptopOutlined,
+  ProfileOutlined,
+  SolutionOutlined,
+} from "@ant-design/icons"
 import { useCallback } from "react"
 
 const { SubMenu } = Menu
@@ -68,17 +73,17 @@ function App() {
             >
               <UserCard user={auth.loggedInUser} />
 
-              <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
-              </SubMenu>
+              <Menu.Item key="overview" icon={<SolutionOutlined />}>
+                Overview
+              </Menu.Item>
 
-              <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                <Menu.Item key="5">option5</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
-                <Menu.Item key="7">option7</Menu.Item>
-                <Menu.Item key="8">option8</Menu.Item>
+              <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>
+                Gradesheet
+              </Menu.Item>
+
+              <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
+                <Menu.Item key="3">Math</Menu.Item>
+                <Menu.Item key="4">Physics</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
