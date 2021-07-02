@@ -57,5 +57,10 @@ export default function useAuth() {
     }
   }, [])
 
-  return { loggedInUser, isRequesting, login, logout }
+  return {
+    loggedInUser,
+    isRequesting,
+    login: loggedInUser ? login : null,
+    logout: loggedInUser ? null : logout,
+  }
 }
