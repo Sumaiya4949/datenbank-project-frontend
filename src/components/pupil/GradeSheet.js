@@ -5,6 +5,7 @@ import {
   QUERY_PUPIL_CLASS_AND_SUBJECTS,
   QUERY_TEST_GRADES,
 } from "../../queries"
+import Loader from "../Loader"
 
 const columns = [
   {
@@ -73,7 +74,7 @@ export default function GradeSheet(props) {
     return subjectsWithAvgGrade.filter((item) => item.avgGrade >= 0)
   }, [gradeData, subjectsData])
 
-  if (gradeQueryLoading || subjectsQueryLoading) return "Loading"
+  if (gradeQueryLoading || subjectsQueryLoading) return <Loader />
 
   if (subjectsQueryError || gradeQueryError) return "Error"
 

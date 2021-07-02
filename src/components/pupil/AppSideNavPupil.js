@@ -7,7 +7,7 @@ import {
   ProfileOutlined,
   SolutionOutlined,
 } from "@ant-design/icons"
-
+import Loader from "../Loader"
 import { Menu } from "antd"
 import { useQuery } from "@apollo/client"
 import { QUERY_PUPIL_CLASS_AND_SUBJECTS } from "../../queries"
@@ -23,10 +23,7 @@ export default function AppSideNavPupil() {
     variables: { id },
   })
 
-  if (loading) return "Loading"
   if (error) return "Error"
-
-  const { subjects } = data.pupil
 
   return (
     <AppSideNav loggedInUser={loggedInUser}>
@@ -39,11 +36,13 @@ export default function AppSideNavPupil() {
       </Menu.Item>
 
       <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
-        {subjects.map((subject) => (
-          <Menu.Item key={subject.id}>
-            <Link to={`/subjects/${subject.id}`}>{subject.name}</Link>
-          </Menu.Item>
-        ))}
+        {loading && <Loader />}
+        {!loading &&
+          data.pupil.subjects.map((subject) => (
+            <Menu.Item key={subject.id}>
+              <Link to={`/subjects/${subject.id}`}>{subject.name}</Link>
+            </Menu.Item>
+          ))}
       </SubMenu>
     </AppSideNav>
   )
