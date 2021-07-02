@@ -1,9 +1,12 @@
 import React from "react"
 import { UserOutlined } from "@ant-design/icons"
-import { List, Card, Avatar, Typography } from "antd"
+import { List, Tag, Avatar, Typography, Descriptions } from "antd"
 import { useQuery } from "@apollo/client"
 import { QUERY_ADMIN_ALL_USERS } from "../../queries"
 import Loader from "../Loader"
+import { Collapse } from "antd"
+
+const { Panel } = Collapse
 
 const gridParams = {
   gutter: 16,
@@ -23,23 +26,38 @@ function UserList(props) {
       dataSource={users}
       renderItem={(user) => (
         <List.Item>
-          <Card
-            title={
-              <>
-                <Avatar
-                  icon={<UserOutlined />}
-                  style={{ backgroundColor: color }}
-                />
-                <Typography.Text>
-                  <b>
-                    &nbsp;&nbsp;&nbsp;{user.forename} {user.surname}
-                  </b>
-                </Typography.Text>
-              </>
-            }
-          >
-            Card content
-          </Card>
+          <Collapse>
+            <Panel
+              header={
+                <>
+                  <Avatar
+                    icon={<UserOutlined />}
+                    style={{ backgroundColor: color }}
+                  />
+                  <Typography.Text>
+                    <b>
+                      &nbsp;&nbsp;&nbsp;{user.forename} {user.surname}
+                    </b>
+                  </Typography.Text>
+                </>
+              }
+            >
+              <Descriptions>
+                <Descriptions.Item label="ID" span={3}>
+                  {user.id}
+                </Descriptions.Item>
+                <Descriptions.Item label="Username" span={3}>
+                  <Tag>@{user.username}</Tag>
+                </Descriptions.Item>
+                <Descriptions.Item label="Forename" span={3}>
+                  {user.forename}
+                </Descriptions.Item>
+                <Descriptions.Item label="Surname" span={3}>
+                  {user.surname}
+                </Descriptions.Item>
+              </Descriptions>
+            </Panel>
+          </Collapse>
         </List.Item>
       )}
     />
