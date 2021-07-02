@@ -1,18 +1,10 @@
 import UserCard from "./UserCard"
-import {
-  UserOutlined,
-  ProfileOutlined,
-  SolutionOutlined,
-} from "@ant-design/icons"
 import { Layout, Menu } from "antd"
-import { useContext } from "react"
-import { AuthContext } from "../contexts"
 
-const { SubMenu } = Menu
 const { Sider } = Layout
 
-export default function AppAppSideNavSidebar() {
-  const { loggedInUser } = useContext(AuthContext)
+export default function AppAppSideNavSidebar(props) {
+  const { loggedInUser, children } = props
 
   return (
     <Sider width={250}>
@@ -24,18 +16,7 @@ export default function AppAppSideNavSidebar() {
       >
         <UserCard user={loggedInUser} />
 
-        <Menu.Item key="overview" icon={<SolutionOutlined />}>
-          Overview
-        </Menu.Item>
-
-        <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>
-          Gradesheet
-        </Menu.Item>
-
-        <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
-          <Menu.Item key="3">Math</Menu.Item>
-          <Menu.Item key="4">Physics</Menu.Item>
-        </SubMenu>
+        {children}
       </Menu>
     </Sider>
   )

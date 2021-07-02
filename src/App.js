@@ -6,7 +6,7 @@ import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
 import { Layout, Breadcrumb, Button, notification } from "antd"
 import { useCallback } from "react"
-import AppSideNav from "./components/AppSideNav"
+import AppSideNavPupil from "./components/AppSideNavPupil"
 
 const { Header, Content } = Layout
 
@@ -35,6 +35,8 @@ function App() {
       </AuthContext.Provider>
     )
 
+  const { role } = loggedInUser
+
   return (
     <AuthContext.Provider value={auth}>
       <Layout className="app-layout">
@@ -57,7 +59,7 @@ function App() {
         </Header>
 
         <Layout>
-          <AppSideNav />
+          {role === "pupil" ? <AppSideNavPupil /> : false}
 
           <Layout style={{ padding: "0 24px 24px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
