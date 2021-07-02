@@ -85,3 +85,23 @@ export const QUERY_ALL_CLASSES = gql`
     }
   }
 `
+
+export const QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS = gql`
+  query ClassWithSubjectsAndPupils($name: String!) {
+    classes(name: $name) {
+      name
+
+      pupils {
+        id
+        username
+        forename
+        surname
+      }
+
+      subjects {
+        id
+        name
+      }
+    }
+  }
+`
