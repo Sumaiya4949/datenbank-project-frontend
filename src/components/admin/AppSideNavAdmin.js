@@ -4,19 +4,23 @@ import AppSideNav from "../AppSideNav"
 import { Link } from "react-router-dom"
 import { SolutionOutlined } from "@ant-design/icons"
 import { Menu } from "antd"
+import { useQuery } from "@apollo/client"
+import { QUERY_ALL_CLASSES } from "../../queries"
+import Loader from "../Loader"
+import { UserOutlined } from "@ant-design/icons"
 
-// const { SubMenu } = Menu
+const { SubMenu } = Menu
 
 export default function AppSideNavAdmin() {
   const { loggedInUser } = useContext(AuthContext)
 
   // const { id } = loggedInUser
 
-  // const { loading, error, data } = useQuery(QUERY_PUPIL_CLASS_AND_SUBJECTS, {
-  //   variables: { id },
-  // })
+  const { loading, error, data } = useQuery(QUERY_ALL_CLASSES)
 
-  // if (error) return "Error"
+  if (loading) return <Loader />
+
+  if (error) return "Error"
 
   return (
     <AppSideNav loggedInUser={loggedInUser}>
@@ -24,15 +28,16 @@ export default function AppSideNavAdmin() {
         <Link to="/">Overview</Link>
       </Menu.Item>
 
-      {/* <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects"> */}
-      {/* {loading && <Loader />} */}
-      {/* {!loading &&
-          data.pupil.subjects.map((subject) => (
+      <SubMenu key="classes" icon={<UserOutlined />} title="All Classes">
+        {loading && <Loader />}
+
+        {!loading &&
+          data.classes.map((subject) => (
             <Menu.Item key={subject.id}>
               <Link to={`/subjects/${subject.id}`}>{subject.name}</Link>
             </Menu.Item>
-          ))} */}
-      {/* </SubMenu> */}
+          ))}
+      </SubMenu>
     </AppSideNav>
   )
 }
