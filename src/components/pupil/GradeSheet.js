@@ -1,6 +1,10 @@
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { Table, Typography } from "antd"
 import { useMemo } from "react"
+import {
+  QUERY_PUPIL_CLASS_AND_SUBJECTS,
+  QUERY_TEST_GRADES,
+} from "../../queries"
 
 const columns = [
   {
@@ -20,29 +24,6 @@ const columns = [
     render: (value) => `${value}%`,
   },
 ]
-
-const QUERY_PUPIL_CLASS_AND_SUBJECTS = gql`
-  query PupilClassWithSubjects($id: ID!) {
-    pupil(id: $id) {
-      className
-      subjects {
-        id
-        name
-      }
-    }
-  }
-`
-
-const QUERY_TEST_GRADES = gql`
-  query TestGrades($id: ID!) {
-    pupil(id: $id) {
-      appearsIn {
-        subjectId
-        score
-      }
-    }
-  }
-`
 
 function calcAvgGrade(subjectId, testResults) {
   const testScores = testResults
@@ -82,7 +63,9 @@ export default function GradeSheet(props) {
           key: index,
           subjectId: subjectData.id,
           subjectName: subjectData.name,
-          avgGrade: calcAvgGrade(subjectData.id, gradeData.pupil.appearsIn),
+          avgGrade: Math.floor(
+            calcAvgGrade(subjectData.id, gradeData.pupil.appearsIn)
+          ),
         }
       }
     )

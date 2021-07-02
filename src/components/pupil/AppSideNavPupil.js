@@ -9,21 +9,10 @@ import {
 } from "@ant-design/icons"
 
 import { Menu } from "antd"
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
+import { QUERY_PUPIL_CLASS_AND_SUBJECTS } from "../../queries"
 
 const { SubMenu } = Menu
-
-const QUERY_PUPIL_CLASS_AND_SUBJECTS = gql`
-  query PupilClassWithSubjects($id: ID!) {
-    pupil(id: $id) {
-      className
-      subjects {
-        id
-        name
-      }
-    }
-  }
-`
 
 export default function AppSideNavPupil() {
   const { loggedInUser } = useContext(AuthContext)
