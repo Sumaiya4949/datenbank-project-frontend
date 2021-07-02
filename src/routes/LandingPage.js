@@ -8,32 +8,19 @@ export default function LandingPage() {
   const { login, isRequesting } = useContext(AuthContext)
   const [form] = Form.useForm()
 
-  const showLoginError = (message) => {
-    notification["error"]({
-      message: "Login Failed",
-      description: message,
-    })
-  }
-
-  const showLoginSuccess = () => {
-    notification["success"]({ message: "Login Successful!" })
-  }
-
   // When user clicks "login"
   const onFinish = async (values) => {
     const { username, password, role } = values
 
-    try {
-      await login(role, username, password)
-      showLoginSuccess()
-    } catch (err) {
-      if (err.response) {
-        const { status, statusText } = err.response
-        showLoginError(`${status}: ${statusText}`)
-      } else {
-        showLoginError(err.message)
-      }
-    }
+    const { user, error } = await login(role, username, password)
+    const label = error ? "error" : "success"
+    const message = error ? "Login failed" : "Login successful"
+    const description = error ? error.message : `Welcome ${user.forename}`
+
+    notification[label]({
+      message,
+      description,
+    })
   }
 
   return (

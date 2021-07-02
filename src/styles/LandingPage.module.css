@@ -11,7 +11,7 @@
   max-width: 70vw;
   font-size: 1.5rem;
   line-height: 3rem;
-  color: #808080;
+  color: #444;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -21,7 +21,7 @@
 }
 
 .header {
-  background-color: #e3e6ff;
+  background: linear-gradient(#ecf2fe, #c6d9fc, #a0c0fa);
   min-height: 100vh;
   display: flex;
   flex-direction: column;

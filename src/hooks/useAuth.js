@@ -10,21 +10,21 @@ export default function useAuth() {
   )
 
   useEffect(() => {
-    axios
-      .get(`/auth/me`, { withCredentials: true })
-      .then((response) => {
+    async function fetchLoggedInUser() {
+      try {
+        const response = await axios.get(`/auth/me`, { withCredentials: true })
         setLoggedInUser({ ...response.data })
         localStorage.setItem("user", JSON.stringify(response.data))
-      })
-      .catch((err) => {
+      } catch {
         setLoggedInUser(null)
         localStorage.removeItem("user")
-      })
+      }
+    }
+    fetchLoggedInUser()
   }, [])
 
-  const login = useCallback(async (role, username, password) => {
+  const login = useCallback(async function (role, username, password) {
     setRequesting(true)
-
     try {
       const response = await axios.post(`/auth/login`, {
         username,
@@ -32,10 +32,24 @@ export default function useAuth() {
         role,
       })
 
-      setLoggedInUser({ ...response.data, role })
+      const user = { ...response.data, role }
+      setLoggedInUser(user)
+      localStorage.setItem("user", JSON.stringify(user))
+      setRequesting(false)
 
-      localStorage.setItem("user", JSON.stringify({ ...response.data, role }))
+      return { user }
+    } catch (error) {
+      setRequesting(false)
+      return { error }
+    }
+  }, [])
 
+  const logout = useCallback(async function () {
+    try {
+      await axios.post(`/auth/logout`, { withCredentials: true })
+
+      setLoggedInUser(null)
+      localStorage.remove("user")
       setRequesting(false)
     } catch (error) {
       setRequesting(false)
@@ -43,5 +57,5 @@ export default function useAuth() {
     }
   }, [])
 
-  return { loggedInUser, isRequesting, login }
+  return { loggedInUser, isRequesting, login, logout }
 }
