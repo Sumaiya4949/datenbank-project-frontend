@@ -40,7 +40,9 @@ export default function AppSideNavPupil() {
 
       <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
         {subjects.map((subject) => (
-          <Menu.Item key={subject.id}>{subject.name}</Menu.Item>
+          <Menu.Item key={subject.id}>
+            <Link to={`/subjects/${subject.id}`}>{subject.name}</Link>
+          </Menu.Item>
         ))}
       </SubMenu>
     </AppSideNav>
