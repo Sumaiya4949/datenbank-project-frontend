@@ -13,3 +13,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#root {
+  min-height: 100vh;
+}
+
+#components-layout-demo-top-side-2 .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top-side-2 .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.app-layout {
+  height: 100vh;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.app-title {
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 5rem;
+}
+
+.app-content-container {
+  padding: 2rem;
+  margin: 0;
+}
