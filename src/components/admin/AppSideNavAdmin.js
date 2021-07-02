@@ -32,9 +32,9 @@ export default function AppSideNavAdmin() {
         {loading && <Loader />}
 
         {!loading &&
-          data.classes.map((subject) => (
-            <Menu.Item key={subject.id}>
-              <Link to={`/subjects/${subject.id}`}>{subject.name}</Link>
+          data.classes.map((_class) => (
+            <Menu.Item key={_class.name}>
+              <Link to={`/classes/${_class.name}`}>{_class.name}</Link>
             </Menu.Item>
           ))}
       </SubMenu>
