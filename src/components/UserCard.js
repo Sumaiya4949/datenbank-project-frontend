@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons"
 import studentImg from "../assets/images/student.jpeg"
 import adminImg from "../assets/images/admin.png"
+import teacherImg from "../assets/images/teacher.png"
 import styles from "../styles/UserCard.module.css"
 
 const { Meta } = Card
@@ -17,7 +18,13 @@ export default function UserCard(props) {
   const { role, forename, surname, username } = user
 
   const themeColor =
-    role === "pupil" ? "green" : role === "admin" ? "crimson" : "gray"
+    role === "pupil"
+      ? "green"
+      : role === "admin"
+      ? "crimson"
+      : role === "teacher"
+      ? "blue"
+      : "gray"
 
   return (
     <Card
@@ -26,7 +33,13 @@ export default function UserCard(props) {
         <img
           alt="example"
           src={
-            role === "pupil" ? studentImg : role === "admin" ? adminImg : "#"
+            role === "pupil"
+              ? studentImg
+              : role === "admin"
+              ? adminImg
+              : role === "teacher"
+              ? teacherImg
+              : null
           }
         />
       }

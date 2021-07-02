@@ -9,6 +9,7 @@ import { useCallback } from "react"
 import AppSideNavPupil from "./components/pupil/AppSideNavPupil"
 import RouteBreadcrumbs from "./components/RouteBreadcrumbs"
 import AppSideNavAdmin from "./components/admin/AppSideNavAdmin"
+import AppSideNavTeacher from "./components/teacher/AppSideNavTeacher"
 
 const { Header, Content } = Layout
 
@@ -64,6 +65,8 @@ function App() {
             <AppSideNavPupil />
           ) : role === "admin" ? (
             <AppSideNavAdmin />
+          ) : role === "teacher" ? (
+            <AppSideNavTeacher />
           ) : (
             false
           )}
