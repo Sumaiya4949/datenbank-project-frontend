@@ -29,28 +29,28 @@ const columns = [
   },
 ]
 
-const tData = [
-  { key: "1", id: "132312", name: "asdasdsa", score: 32, date: "312312" },
-  { key: "2", id: "132312", name: "asdasdsa", score: 32, date: "312312" },
-  { key: "3", id: "132312", name: "asdasdsa", score: 32, date: "312312" },
-]
-
 export default function SubjectDetails(props) {
   const { pupilId } = props
 
   const { params } = useRouteMatch()
 
+  const subjectId = params.id
+
   const { loading, data, error } = useQuery(QUERY_PUPIL_TESTS_OF_A_SUBJECT, {
     variables: {
       id: pupilId,
-      subjectId: params.id,
+      subjectId,
     },
   })
 
   if (loading) return <Loader />
   if (error) return "Error"
 
-  console.log(data)
+  const tests = data?.pupil?.subjects[0].tests.map((test) => ({
+    ...test,
+    key: test.id,
+    date: new Date(parseInt(test.date, 10)).toLocaleDateString(),
+  }))
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function SubjectDetails(props) {
         </Col>
 
         <Col span={12}>
-          <Statistic title="Subject ID" value={"sdasdasds"} />
+          <Statistic title="Subject ID" value={subjectId} />
         </Col>
       </Row>
 
@@ -70,7 +70,7 @@ export default function SubjectDetails(props) {
 
       <Typography.Title level={3}>Tests</Typography.Title>
 
-      <Table columns={columns} dataSource={tData} />
+      <Table columns={columns} dataSource={tests} />
     </>
   )
 }

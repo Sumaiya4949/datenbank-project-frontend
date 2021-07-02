@@ -26,6 +26,7 @@ export const QUERY_TEST_GRADES = gql`
 export const QUERY_PUPIL_TESTS_OF_A_SUBJECT = gql`
   query PupilSubjectTest($id: ID!, $subjectId: ID!) {
     pupil(id: $id) {
+      id
       subjects(id: $subjectId) {
         id
         tests {
