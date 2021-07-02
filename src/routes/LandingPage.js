@@ -1,5 +1,5 @@
 import logo from "../assets/icons/logo.svg"
-import { Form, Input, Button, notification } from "antd"
+import { Form, Input, Button, notification, Select } from "antd"
 import styles from "../styles/LandingPage.module.css"
 import { useContext } from "react"
 import { AuthContext } from "../contexts"
@@ -15,14 +15,20 @@ export default function LandingPage() {
     })
   }
 
+  const showLoginSuccess = () => {
+    notification["success"]({ message: "Login Successful!" })
+  }
+
   // When user clicks "login"
   const onFinish = async (values) => {
-    const { username, password } = values
+    const { username, password, role } = values
 
     try {
-      await login(username, password)
+      await login(role, username, password)
+      showLoginSuccess()
     } catch (err) {
-      showLoginError(err.message)
+      const { status, statusText } = err.response
+      showLoginError(`${status}: ${statusText}`)
     }
   }
 
@@ -46,6 +52,22 @@ export default function LandingPage() {
           onFinish={onFinish}
           size="large"
         >
+          <Form.Item
+            name="role"
+            rules={[
+              {
+                required: true,
+                message: "Please select a role",
+              },
+            ]}
+          >
+            <Select placeholder="Select a role" onChange={() => {}} allowClear>
+              <Select.Option value="admin">Admin</Select.Option>
+              <Select.Option value="teacher">Teacher</Select.Option>
+              <Select.Option value="pupil">Pupil</Select.Option>
+            </Select>
+          </Form.Item>
+
           {/* Username Input */}
           <Form.Item
             name="username"
