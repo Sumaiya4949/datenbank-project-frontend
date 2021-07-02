@@ -46,21 +46,22 @@ export default function useAuth() {
 
   const logout = useCallback(async function () {
     try {
-      await axios.post(`/auth/logout`, { withCredentials: true })
+      await axios.post(`/auth/logout`)
 
       setLoggedInUser(null)
-      localStorage.remove("user")
+      localStorage.removeItem("user")
       setRequesting(false)
+      return { success: true }
     } catch (error) {
       setRequesting(false)
-      throw error
+      return { error }
     }
   }, [])
 
   return {
     loggedInUser,
     isRequesting,
-    login: loggedInUser ? login : null,
-    logout: loggedInUser ? null : logout,
+    login: loggedInUser ? null : login,
+    logout: loggedInUser ? logout : null,
   }
 }

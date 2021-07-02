@@ -5,8 +5,9 @@ import { Route, Switch } from "react-router-dom"
 import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
 import UserCard from "./components/UserCard"
-import { Layout, Menu, Breadcrumb, Button } from "antd"
+import { Layout, Menu, Breadcrumb, Button, notification } from "antd"
 import { UserOutlined, LaptopOutlined } from "@ant-design/icons"
+import { useCallback } from "react"
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
@@ -14,7 +15,22 @@ const { Header, Content, Sider } = Layout
 function App() {
   const auth = useAuth()
 
-  if (!auth.loggedInUser)
+  const { loggedInUser, logout } = auth
+
+  const logOutAndNotify = useCallback(async () => {
+    const { error } = await logout()
+
+    const label = error ? "error" : "success"
+    const message = error ? "Logout unsuccessful" : "Successfully logged out"
+    const description = error ? error.message : ""
+
+    notification[label]({
+      message,
+      description,
+    })
+  }, [logout])
+
+  if (!loggedInUser)
     return (
       <AuthContext.Provider value={auth}>
         <LandingPage />
@@ -33,7 +49,11 @@ function App() {
             <Menu.Item key="3">nav 3</Menu.Item>
           </Menu>
 
-          <Button className="btn-logout" type="danger" onClick={auth.logout}>
+          <Button
+            className="btn-logout"
+            type="danger"
+            onClick={logOutAndNotify}
+          >
             Log out
           </Button>
         </Header>
