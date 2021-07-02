@@ -26,7 +26,7 @@ export default function AppSideNavPupil() {
   if (loading) return "Loading"
   if (error) return "Error"
 
-  const { className, subjects } = data.pupil
+  const { subjects } = data.pupil
 
   return (
     <AppSideNav loggedInUser={loggedInUser}>

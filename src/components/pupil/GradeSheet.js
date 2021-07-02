@@ -77,8 +77,6 @@ export default function GradeSheet(props) {
 
   if (subjectsQueryError || gradeQueryError) return "Error"
 
-  console.log(gradeData, subjectsData)
-
   return (
     <>
       <Typography.Title>My Gradesheet</Typography.Title>
