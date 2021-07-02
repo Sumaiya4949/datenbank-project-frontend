@@ -4,18 +4,11 @@ import { AuthContext } from "./contexts"
 import { Route, Switch } from "react-router-dom"
 import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
-import UserCard from "./components/UserCard"
-import { Layout, Menu, Breadcrumb, Button, notification } from "antd"
-import {
-  UserOutlined,
-  LaptopOutlined,
-  ProfileOutlined,
-  SolutionOutlined,
-} from "@ant-design/icons"
+import { Layout, Breadcrumb, Button, notification } from "antd"
 import { useCallback } from "react"
+import AppSideNav from "./components/AppSideNav"
 
-const { SubMenu } = Menu
-const { Header, Content, Sider } = Layout
+const { Header, Content } = Layout
 
 function App() {
   const auth = useAuth()
@@ -48,11 +41,11 @@ function App() {
         <Header className="app-header">
           <b className="app-title">Grading System Management</b>
 
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
             <Menu.Item key="1">nav 1</Menu.Item>
             <Menu.Item key="2">nav 2</Menu.Item>
             <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
+          </Menu> */}
 
           <Button
             className="btn-logout"
@@ -64,29 +57,7 @@ function App() {
         </Header>
 
         <Layout>
-          <Sider width={250}>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
-              style={{ height: "100%", borderRight: 0 }}
-            >
-              <UserCard user={auth.loggedInUser} />
-
-              <Menu.Item key="overview" icon={<SolutionOutlined />}>
-                Overview
-              </Menu.Item>
-
-              <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>
-                Gradesheet
-              </Menu.Item>
-
-              <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
-                <Menu.Item key="3">Math</Menu.Item>
-                <Menu.Item key="4">Physics</Menu.Item>
-              </SubMenu>
-            </Menu>
-          </Sider>
+          <AppSideNav />
 
           <Layout style={{ padding: "0 24px 24px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
