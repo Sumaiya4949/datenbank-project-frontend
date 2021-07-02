@@ -3,7 +3,7 @@ import { AuthContext } from "../../contexts"
 import AppSideNav from "../AppSideNav"
 import { Link } from "react-router-dom"
 import {
-  UserOutlined,
+  ReadOutlined,
   ProfileOutlined,
   SolutionOutlined,
 } from "@ant-design/icons"
@@ -35,7 +35,7 @@ export default function AppSideNavPupil() {
         <Link to="/gradesheet">Gradesheet</Link>
       </Menu.Item>
 
-      <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">
+      <SubMenu key="sub1" icon={<ReadOutlined />} title="My Subjects">
         {loading && <Loader />}
         {!loading &&
           data.pupil.subjects.map((subject) => (

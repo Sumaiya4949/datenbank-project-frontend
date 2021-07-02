@@ -7,7 +7,7 @@ import { Menu } from "antd"
 import { useQuery } from "@apollo/client"
 import { QUERY_ALL_CLASSES } from "../../queries"
 import Loader from "../Loader"
-import { UserOutlined } from "@ant-design/icons"
+import { BlockOutlined } from "@ant-design/icons"
 
 const { SubMenu } = Menu
 
@@ -28,7 +28,7 @@ export default function AppSideNavAdmin() {
         <Link to="/">Overview</Link>
       </Menu.Item>
 
-      <SubMenu key="classes" icon={<UserOutlined />} title="All Classes">
+      <SubMenu key="classes" icon={<BlockOutlined />} title="All Classes">
         {loading && <Loader />}
 
         {!loading &&
