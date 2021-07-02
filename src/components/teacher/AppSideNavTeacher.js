@@ -23,8 +23,6 @@ export default function AppSideNavTeacher() {
 
   if (error) return "Error"
 
-  console.log(data)
-
   return (
     <AppSideNav loggedInUser={loggedInUser}>
       {/* <Menu.Item key="subjects" icon={<SolutionOutlined />}>
