@@ -32,8 +32,12 @@ function App() {
   if (!loggedInUser)
     return (
       <AuthContext.Provider value={auth}>
-        <Redirect to="/somewhere" />
-        <LandingPage />
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route>
+            <Redirect to="/" />
+          </Route>
+        </Switch>
       </AuthContext.Provider>
     )
 

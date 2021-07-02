@@ -68,7 +68,7 @@ export default function SubjectDetails(props) {
       <br />
       <br />
 
-      <Typography.Title level={3}>Tests</Typography.Title>
+      <Typography.Title level={4}>Tests</Typography.Title>
 
       <Table columns={columns} dataSource={tests} />
     </>
