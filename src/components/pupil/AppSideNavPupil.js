@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../../contexts"
 import AppSideNav from "../AppSideNav"
+import { Link } from "react-router-dom"
 import {
   UserOutlined,
   ProfileOutlined,
@@ -45,7 +46,7 @@ export default function AppSideNavPupil() {
       </Menu.Item>
 
       <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>
-        Gradesheet
+        <Link to="/gradesheet">Gradesheet</Link>
       </Menu.Item>
 
       <SubMenu key="sub1" icon={<UserOutlined />} title="My Subjects">

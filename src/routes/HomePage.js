@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import PupilHomePage from "../components/PupilHomePage"
+import PupilHomePage from "../components/pupil/PupilHomePage"
 import { AuthContext } from "../contexts"
 
 export default function HomePage() {

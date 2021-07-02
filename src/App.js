@@ -70,7 +70,7 @@ function App() {
 
             <Content className="app-content-container">
               <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route path="/" component={HomePage} />
                 <Route component={InvalidRoute} />
               </Switch>
             </Content>
