@@ -12,8 +12,10 @@ export default function useAuth() {
   useEffect(() => {
     axios
       .get(`/auth/me`, { withCredentials: true })
-      .then((data) => console.log(data))
-      .catch((data) => console.log(data))
+      .then((response) =>
+        localStorage.setItem("user", JSON.stringify(response.data))
+      )
+      .catch((err) => localStorage.removeItem("user"))
   }, [])
 
   const login = useCallback(async (role, username, password) => {
