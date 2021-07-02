@@ -54,3 +54,26 @@ export const QUERY_PUPIL_OVERVIEW = gql`
     }
   }
 `
+
+export const QUERY_ADMIN_ALL_USERS = gql`
+  query AllUsers {
+    admins {
+      id
+      username
+      forename
+      surname
+    }
+    teachers {
+      id
+      username
+      forename
+      surname
+    }
+    pupils {
+      id
+      username
+      forename
+      surname
+    }
+  }
+`

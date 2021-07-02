@@ -1,9 +1,22 @@
 import { useContext } from "react"
 import PupilHomePage from "../components/pupil/PupilHomePage"
+import AdminHomePage from "../components/admin/AdminHomePage"
 import { AuthContext } from "../contexts"
 
 export default function HomePage() {
   const { loggedInUser } = useContext(AuthContext)
 
-  return <div>{loggedInUser.role === "pupil" ? <PupilHomePage /> : false}</div>
+  const { role } = loggedInUser
+
+  return (
+    <div>
+      {role === "pupil" ? (
+        <PupilHomePage />
+      ) : role === "admin" ? (
+        <AdminHomePage />
+      ) : (
+        false
+      )}
+    </div>
+  )
 }
