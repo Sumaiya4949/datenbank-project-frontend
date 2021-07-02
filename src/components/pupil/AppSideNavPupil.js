@@ -28,7 +28,7 @@ export default function AppSideNavPupil() {
   return (
     <AppSideNav loggedInUser={loggedInUser}>
       <Menu.Item key="overview" icon={<SolutionOutlined />}>
-        Overview
+        <Link to="/">Overview</Link>
       </Menu.Item>
 
       <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>

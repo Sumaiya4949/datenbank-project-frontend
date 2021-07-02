@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Table, Typography } from "antd"
-import { Statistic, Row, Col } from "antd"
+import { Statistic, Row, Col, Table, Typography } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_PUPIL_TESTS_OF_A_SUBJECT } from "../../queries"
 import Loader from "../Loader"
