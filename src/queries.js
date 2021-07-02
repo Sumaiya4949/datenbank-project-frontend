@@ -105,3 +105,15 @@ export const QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS = gql`
     }
   }
 `
+
+export const QUERY_TEACHER_SUBJECTS = gql`
+  query TeacherSubjects($id: ID!) {
+    teacher(id: $id) {
+      teaches {
+        id
+        name
+        className
+      }
+    }
+  }
+`

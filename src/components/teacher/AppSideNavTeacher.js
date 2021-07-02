@@ -2,42 +2,44 @@ import { useContext } from "react"
 import { AuthContext } from "../../contexts"
 import AppSideNav from "../AppSideNav"
 import { Link } from "react-router-dom"
-import { SolutionOutlined } from "@ant-design/icons"
+import { ReadOutlined } from "@ant-design/icons"
 import { Menu } from "antd"
 import { useQuery } from "@apollo/client"
-import { QUERY_ALL_CLASSES } from "../../queries"
+import { QUERY_TEACHER_SUBJECTS } from "../../queries"
 import Loader from "../Loader"
-import { BlockOutlined } from "@ant-design/icons"
 
 const { SubMenu } = Menu
 
 export default function AppSideNavTeacher() {
   const { loggedInUser } = useContext(AuthContext)
 
-  // const { id } = loggedInUser
+  const { id } = loggedInUser
 
-  // const { loading, error, data } = useQuery(QUERY_ALL_CLASSES)
+  const { loading, error, data } = useQuery(QUERY_TEACHER_SUBJECTS, {
+    variables: { id },
+  })
 
-  // if (loading) return <Loader />
+  if (loading) return <Loader />
 
-  // if (error) return "Error"
+  if (error) return "Error"
+
+  console.log(data)
 
   return (
     <AppSideNav loggedInUser={loggedInUser}>
-      <Menu.Item key="overview" icon={<SolutionOutlined />}>
-        <Link to="/">Overview</Link>
-      </Menu.Item>
+      {/* <Menu.Item key="subjects" icon={<SolutionOutlined />}>
+        <Link to="/mypupils">My Pupils</Link>
+      </Menu.Item> */}
 
-      {/* <SubMenu key="classes" icon={<BlockOutlined />} title="All Classes">
-        {loading && <Loader />}
-
-        {!loading &&
-          data.classes.map((_class) => (
-            <Menu.Item key={_class.name}>
-              <Link to={`/classes/${_class.name}`}>{_class.name}</Link>
-            </Menu.Item>
-          ))}
-      </SubMenu> */}
+      <SubMenu key="classes" icon={<ReadOutlined />} title="All Subjects">
+        {data.teacher.teaches.map((subject) => (
+          <Menu.Item key={subject.id}>
+            <Link to={`/subjects/${subject.id}`}>
+              {subject.className} - {subject.name}
+            </Link>
+          </Menu.Item>
+        ))}
+      </SubMenu>
     </AppSideNav>
   )
 }

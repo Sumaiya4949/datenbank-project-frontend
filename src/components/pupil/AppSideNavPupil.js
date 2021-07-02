@@ -32,7 +32,7 @@ export default function AppSideNavPupil() {
       </Menu.Item>
 
       <Menu.Item key="gradesheet" icon={<ProfileOutlined />}>
-        <Link to="/gradesheet">Gradesheet</Link>
+        <Link to="/gradesheet">My Gradesheet</Link>
       </Menu.Item>
 
       <SubMenu key="sub1" icon={<ReadOutlined />} title="My Subjects">
