@@ -1,7 +1,7 @@
 import LandingPage from "./routes/LandingPage"
 import useAuth from "./hooks/useAuth"
 import { AuthContext } from "./contexts"
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
 import { Layout, Button, notification } from "antd"
@@ -32,6 +32,7 @@ function App() {
   if (!loggedInUser)
     return (
       <AuthContext.Provider value={auth}>
+        <Redirect to="/somewhere" />
         <LandingPage />
       </AuthContext.Provider>
     )
