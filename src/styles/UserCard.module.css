@@ -1,0 +1,7 @@
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  align-items: flex-start;
+  gap: 5px;
+}

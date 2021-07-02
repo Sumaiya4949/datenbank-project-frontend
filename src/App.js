@@ -4,14 +4,9 @@ import { AuthContext } from "./contexts"
 import { Route, Switch } from "react-router-dom"
 import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
-import { Layout, Menu, Breadcrumb } from "antd"
-import { Typography } from "antd"
-
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from "@ant-design/icons"
+import UserCard from "./components/UserCard"
+import { Layout, Menu, Breadcrumb, Button } from "antd"
+import { UserOutlined, LaptopOutlined } from "@ant-design/icons"
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
@@ -37,6 +32,10 @@ function App() {
             <Menu.Item key="2">nav 2</Menu.Item>
             <Menu.Item key="3">nav 3</Menu.Item>
           </Menu>
+
+          <Button className="btn-logout" type="danger" onClick={auth.logout}>
+            Log out
+          </Button>
         </Header>
 
         <Layout>
@@ -47,8 +46,9 @@ function App() {
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0 }}
             >
+              <UserCard user={auth.loggedInUser} />
+
               <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                <Menu.Item key="1">option1</Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
