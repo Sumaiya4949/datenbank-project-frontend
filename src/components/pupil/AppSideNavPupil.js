@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import { AuthContext } from "../contexts"
-import AppSideNav from "./AppSideNav"
+import { AuthContext } from "../../contexts"
+import AppSideNav from "../AppSideNav"
 import {
   UserOutlined,
   ProfileOutlined,

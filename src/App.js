@@ -6,7 +6,7 @@ import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
 import { Layout, Breadcrumb, Button, notification } from "antd"
 import { useCallback } from "react"
-import AppSideNavPupil from "./components/AppSideNavPupil"
+import AppSideNavPupil from "./components/pupil/AppSideNavPupil"
 
 const { Header, Content } = Layout
 
