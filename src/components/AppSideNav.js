@@ -7,7 +7,7 @@ export default function AppAppSideNavSidebar(props) {
   const { loggedInUser, children } = props
 
   return (
-    <Sider width={250}>
+    <Sider width={"30vw"}>
       <Menu
         mode="inline"
         defaultSelectedKeys={["1"]}
