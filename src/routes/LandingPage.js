@@ -27,8 +27,12 @@ export default function LandingPage() {
       await login(role, username, password)
       showLoginSuccess()
     } catch (err) {
-      const { status, statusText } = err.response
-      showLoginError(`${status}: ${statusText}`)
+      if (err.response) {
+        const { status, statusText } = err.response
+        showLoginError(`${status}: ${statusText}`)
+      } else {
+        showLoginError(err.message)
+      }
     }
   }
 
@@ -61,7 +65,12 @@ export default function LandingPage() {
               },
             ]}
           >
-            <Select placeholder="Select a role" onChange={() => {}} allowClear>
+            <Select
+              className={styles.formField}
+              placeholder="Select a role"
+              onChange={() => {}}
+              allowClear
+            >
               <Select.Option value="admin">Admin</Select.Option>
               <Select.Option value="teacher">Teacher</Select.Option>
               <Select.Option value="pupil">Pupil</Select.Option>
