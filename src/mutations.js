@@ -75,3 +75,14 @@ export const MUTATION_EDIT_SCORE = gql`
     )
   }
 `
+
+export const MUTATION_CREATE_USER = gql`
+  mutation CreateUser($adminId: ID!, $user: InputUser!) {
+    createUser(adminId: $adminId, user: $user) {
+      id
+      username
+      forename
+      surname
+    }
+  }
+`

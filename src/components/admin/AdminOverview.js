@@ -1,9 +1,9 @@
-import React from "react"
-import { Typography } from "antd"
+import { Typography, Space } from "antd"
 import { useQuery } from "@apollo/client"
 import { QUERY_ADMIN_ALL_USERS } from "../../queries"
 import Loader from "../Loader"
 import UserList from "../UserList"
+import UserCreator from "./UserCreator"
 
 export default function AdminOverview() {
   const { loading, error, data } = useQuery(QUERY_ADMIN_ALL_USERS)
@@ -15,6 +15,14 @@ export default function AdminOverview() {
 
   return (
     <>
+      <Space>
+        <UserCreator />
+      </Space>
+      <br />
+      <br />
+      <br />
+      <br />
+
       <Typography.Title level={2}>Admins</Typography.Title>
       <UserList users={admins} color="crimson" />
       <br />
