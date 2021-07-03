@@ -1,5 +1,5 @@
 import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
-import { DeleteOutlined, InfoOutlined } from "@ant-design/icons"
+import { EditOutlined, InfoOutlined } from "@ant-design/icons"
 import { useRouteMatch } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import { QUERY_TEST_DETAILS } from "../../queries"
@@ -27,6 +27,18 @@ const pupilTableColumns = [
     dataIndex: "score",
     key: "score",
     render: (grade) => `${grade}%`,
+  },
+  {
+    title: "Actions",
+    key: "actions",
+    render: (text, record) => (
+      <Space size="middle">
+        <Button type="primary">
+          <EditOutlined />
+          Change Score
+        </Button>
+      </Space>
+    ),
   },
 ]
 
