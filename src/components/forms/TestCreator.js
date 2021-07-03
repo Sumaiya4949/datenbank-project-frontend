@@ -4,6 +4,7 @@ import { PlusSquareOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { useMutation } from "@apollo/client"
 import { MUTATION_ADD_TEST } from "../../mutations"
+import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 
 export default function TestCreator(props) {
   const { subjectId, teacherId, subjectName, classLabel } = props
@@ -27,11 +28,19 @@ export default function TestCreator(props) {
             date: moment(values.date).format("YYYY-MM-DD"),
           },
         },
+        refetchQueries: [
+          {
+            query: QUERY_TEACHER_SUBJECT_OVERVIEW,
+            variables: {
+              id: teacherId,
+              subjectId,
+            },
+          },
+        ],
       })
 
       form.resetFields()
       setModalOpen(false)
-      window.location.reload()
     } catch (err) {
       console.log(err.message)
     }
