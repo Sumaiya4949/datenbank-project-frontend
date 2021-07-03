@@ -131,6 +131,13 @@ export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
           name
           date
         }
+
+        pupils {
+          id
+          username
+          forename
+          surname
+        }
       }
     }
   }

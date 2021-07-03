@@ -3,6 +3,7 @@ import { Typography, Row, Col, Statistic, Table } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import Loader from "../Loader"
+import UserList from "../UserList"
 
 const columns = [
   {
@@ -41,7 +42,7 @@ export default function SubjectOverview(props) {
   if (error) return "Error"
 
   const subject = data.teacher.teaches[0]
-  const { name, id, className, tests } = subject
+  const { name, id, className, tests, pupils } = subject
 
   return (
     <div>
@@ -61,8 +62,18 @@ export default function SubjectOverview(props) {
       <br />
       <br />
 
-      <Typography.Title level={3}>All tests</Typography.Title>
-      <Table pagination={false} columns={columns} dataSource={tests} />
+      <Typography.Title level={3}>All tests for this subject</Typography.Title>
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={tests.map((test) => ({ ...test, key: test.id }))}
+      />
+
+      <br />
+      <br />
+
+      <Typography.Title level={3}>Pupils in this subject</Typography.Title>
+      <UserList users={pupils} color="green" />
     </div>
   )
 }
