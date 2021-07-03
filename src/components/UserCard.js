@@ -9,8 +9,14 @@ import studentImg from "../assets/images/student.jpeg"
 import adminImg from "../assets/images/admin.png"
 import teacherImg from "../assets/images/teacher.png"
 import styles from "../styles/UserCard.module.css"
-import { useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import UserInfoForm from "./forms/UserInfoForm"
+import { useMutation } from "@apollo/client"
+import {
+  MUTATION_EDIT_ADMIN_BASIC_INFO,
+  MUTATION_EDIT_PUPIL_BASIC_INFO,
+  MUTATION_EDIT_TEACHER_BASIC_INFO,
+} from "../mutations"
 
 const { Meta } = Card
 
@@ -19,25 +25,55 @@ export default function UserCard(props) {
 
   const { role, forename, surname, username } = user
 
-  const [visible, setVisible] = useState(false)
+  const [userEditFormModalVisible, setUserEditFormModalVisible] =
+    useState(false)
 
-  const showModal = () => {
-    setVisible(true)
-  }
+  const MUTATION = useMemo(
+    () =>
+      role === "pupil"
+        ? MUTATION_EDIT_PUPIL_BASIC_INFO
+        : role === "teacher"
+        ? MUTATION_EDIT_TEACHER_BASIC_INFO
+        : role === "admin"
+        ? MUTATION_EDIT_ADMIN_BASIC_INFO
+        : null,
+    [role]
+  )
 
-  const handleCancel = () => {
+  const [editUser, { data }] = useMutation(MUTATION)
+
+  const showUserEditFormModal = useCallback(() => {
+    setUserEditFormModalVisible(true)
+  }, [])
+
+  const handleCancel = useCallback(() => {
     console.log("Clicked cancel button")
-    setVisible(false)
-  }
+    setUserEditFormModalVisible(false)
+  }, [])
 
-  const themeColor =
-    role === "pupil"
-      ? "green"
-      : role === "admin"
-      ? "crimson"
-      : role === "teacher"
-      ? "blue"
-      : "gray"
+  const onUserEditSubmit = useCallback(
+    async (editedUserInfo) => {
+      await editUser({ variables: { userInfo: editedUserInfo, id: user.id } })
+
+      setUserEditFormModalVisible(false)
+      console.log(editedUserInfo)
+    },
+    [editUser, user.id]
+  )
+
+  console.log("DATA", data)
+
+  const themeColor = useMemo(
+    () =>
+      role === "pupil"
+        ? "green"
+        : role === "admin"
+        ? "crimson"
+        : role === "teacher"
+        ? "blue"
+        : "gray",
+    [role]
+  )
 
   return (
     <Card
@@ -58,7 +94,7 @@ export default function UserCard(props) {
       }
       actions={[
         <SettingOutlined key="setting" />,
-        <EditOutlined key="edit" onClick={showModal} />,
+        <EditOutlined key="edit" onClick={showUserEditFormModal} />,
         <EllipsisOutlined key="ellipsis" />,
       ]}
     >
@@ -77,11 +113,11 @@ export default function UserCard(props) {
 
             <Modal
               title="Edit your basic info"
-              visible={visible}
+              visible={userEditFormModalVisible}
               footer={null}
               onCancel={handleCancel}
             >
-              <UserInfoForm user={user} onSubmit={() => setVisible(false)} />
+              <UserInfoForm user={user} onSubmit={onUserEditSubmit} />
             </Modal>
           </div>
         }

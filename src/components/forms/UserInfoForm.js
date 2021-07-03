@@ -26,7 +26,8 @@ export default function UserInfoForm(props) {
 
   const onFinish = (values) => {
     console.log(values)
-    onSubmit()
+
+    onSubmit(values.user)
   }
 
   return (
@@ -35,13 +36,14 @@ export default function UserInfoForm(props) {
       name="user-info-form"
       onFinish={onFinish}
       validateMessages={validateMessages}
+      initialValues={{ user }}
     >
       <Form.Item name={["user", "forename"]} label="Forename">
-        <Input defaultValue={user.forename} />
+        <Input />
       </Form.Item>
 
       <Form.Item name={["user", "surname"]} label="Surname">
-        <Input defaultValue={user.surname} />
+        <Input />
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
