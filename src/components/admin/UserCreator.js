@@ -1,10 +1,14 @@
-import { useCallback, useState } from "react"
-import { Button, Modal, Form, Input, Radio } from "antd"
+import { useCallback, useContext, useState } from "react"
+import { Button, Modal, Form, Input, Radio, notification } from "antd"
 import { UserAddOutlined } from "@ant-design/icons"
 import { useMutation } from "@apollo/client"
 import { MUTATION_CREATE_USER } from "../../mutations"
+import { AuthContext } from "../../contexts"
+import { QUERY_ADMIN_ALL_USERS } from "../../queries"
 
-export default function UserCreator(props) {
+export default function UserCreator() {
+  const { loggedInUser } = useContext(AuthContext)
+
   const [createUser] = useMutation(MUTATION_CREATE_USER)
 
   const [form] = Form.useForm()
@@ -17,21 +21,24 @@ export default function UserCreator(props) {
         await form.validateFields()
 
       await createUser({
-        variables: { role, forename, surname, username, password },
-        refetchQueries: [
-          // {
-          //   query: QUERY_TEST_DETAILS,
-          //   variables: { id: testId, teacherId },
-          // },
-        ],
+        variables: {
+          adminId: loggedInUser.id,
+          user: { role, forename, surname, username, password },
+        },
+        refetchQueries: [{ query: QUERY_ADMIN_ALL_USERS }],
       })
 
       form.resetFields()
       setModalOpen(false)
+      notification["success"]({
+        message: "Successfully created user",
+      })
     } catch (err) {
-      console.log(err.message)
+      notification["error"]({
+        message: err.message,
+      })
     }
-  }, [form, createUser])
+  }, [form, createUser, loggedInUser.id])
 
   return (
     <>
