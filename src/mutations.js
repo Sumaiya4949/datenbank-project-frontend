@@ -39,3 +39,23 @@ export const MUTATION_ADD_TEST = gql`
     }
   }
 `
+
+export const MUTATION_EDIT_TEST = gql`
+  mutation CreateTest(
+    $id: ID!
+    $subjectId: ID!
+    $teacherId: ID!
+    $test: InputTest!
+  ) {
+    editTest(
+      id: $id
+      subjectId: $subjectId
+      teacherId: $teacherId
+      test: $test
+    ) {
+      id
+      name
+      date
+    }
+  }
+`
