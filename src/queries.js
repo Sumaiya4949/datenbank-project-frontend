@@ -109,6 +109,7 @@ export const QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS = gql`
 export const QUERY_TEACHER_SUBJECTS = gql`
   query TeacherSubjects($id: ID!) {
     teacher(id: $id) {
+      id
       teaches {
         id
         name
@@ -121,6 +122,7 @@ export const QUERY_TEACHER_SUBJECTS = gql`
 export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
   query TeacherSubjectOverview($id: ID!, $subjectId: ID!) {
     teacher(id: $id) {
+      id
       teaches(id: $subjectId) {
         id
         name

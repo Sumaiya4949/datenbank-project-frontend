@@ -29,3 +29,13 @@ export const MUTATION_EDIT_ADMIN_BASIC_INFO = gql`
     }
   }
 `
+
+export const MUTATION_ADD_TEST = gql`
+  mutation CreateTest($subjectId: ID!, $teacherId: ID!, $test: InputTest!) {
+    createTest(subjectId: $subjectId, teacherId: $teacherId, test: $test) {
+      id
+      name
+      date
+    }
+  }
+`

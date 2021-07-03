@@ -62,3 +62,8 @@ code {
 .btn-logout {
   margin-left: auto;
 }
+
+.statistic {
+  background-color: #fff;
+  padding: 1rem !important;
+}

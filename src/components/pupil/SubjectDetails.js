@@ -55,11 +55,15 @@ export default function SubjectDetails(props) {
     <>
       <Row gutter={16}>
         <Col span={12}>
-          <Statistic title="Subject" value={"Math"} />
+          <Statistic title="Subject" value={"Math"} className="statistic" />
         </Col>
 
         <Col span={12}>
-          <Statistic title="Subject ID" value={subjectId} />
+          <Statistic
+            title="Subject ID"
+            value={subjectId}
+            className="statistic"
+          />
         </Col>
       </Row>
 

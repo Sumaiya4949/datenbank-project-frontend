@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client"
 import { Typography, Row, Col, Statistic, Table } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
+import TestCreator from "../forms/TestCreator"
+
 import Loader from "../Loader"
 
 const testTableColumns = [
@@ -86,23 +88,37 @@ export default function SubjectOverview(props) {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Statistic title="Class" value={className} />
+          <Statistic title="Class" value={className} className="statistic" />
         </Col>
         <Col span={12}>
-          <Statistic title="ID" value={id} />
+          <Statistic title="ID" value={id} className="statistic" />
         </Col>
       </Row>
 
       <br />
       <br />
+      <br />
+      <br />
 
       <Typography.Title level={3}>All tests for this subject</Typography.Title>
+      <TestCreator
+        subjectId={subjectId}
+        teacherId={teacherId}
+        subjectName={name}
+        classLabel={className}
+      />
+
+      <br />
+      <br />
+
       <Table
         pagination={false}
         columns={testTableColumns}
         dataSource={tests.map((test) => ({ ...test, key: test.id }))}
       />
 
+      <br />
+      <br />
       <br />
       <br />
 
