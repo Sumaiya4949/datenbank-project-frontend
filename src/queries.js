@@ -137,6 +137,11 @@ export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
           username
           forename
           surname
+
+          appearsIn {
+            subjectId
+            score
+          }
         }
       }
     }
