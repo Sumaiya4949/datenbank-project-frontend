@@ -58,10 +58,15 @@ export default function useAuth() {
     }
   }, [])
 
+  const editInfo = useCallback((info) => {
+    setLoggedInUser((prev) => ({ ...prev, ...info }))
+  }, [])
+
   return {
     loggedInUser,
     isRequesting,
     login: loggedInUser ? null : login,
     logout: loggedInUser ? logout : null,
+    editLoggedInUserInfo: loggedInUser ? editInfo : null,
   }
 }

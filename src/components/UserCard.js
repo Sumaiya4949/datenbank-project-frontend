@@ -1,4 +1,4 @@
-import { Card, Avatar, Modal, Tag } from "antd"
+import { Card, Avatar, Modal, notification, Tag } from "antd"
 import {
   EditOutlined,
   EllipsisOutlined,
@@ -21,7 +21,7 @@ import {
 const { Meta } = Card
 
 export default function UserCard(props) {
-  const { user } = props
+  const { user, editLoggedInUserInfo } = props
 
   const { role, forename, surname, username } = user
 
@@ -40,7 +40,7 @@ export default function UserCard(props) {
     [role]
   )
 
-  const [editUser, { data }] = useMutation(MUTATION)
+  const [editUser] = useMutation(MUTATION)
 
   const showUserEditFormModal = useCallback(() => {
     setUserEditFormModalVisible(true)
@@ -53,15 +53,19 @@ export default function UserCard(props) {
 
   const onUserEditSubmit = useCallback(
     async (editedUserInfo) => {
-      await editUser({ variables: { userInfo: editedUserInfo, id: user.id } })
+      try {
+        await editUser({ variables: { userInfo: editedUserInfo, id: user.id } })
+      } catch {
+        notification["error"]({
+          message: "Failed to edit info",
+        })
+      }
 
-      setUserEditFormModalVisible(false)
-      console.log(editedUserInfo)
+      setUserEditFormModalVisible()
+      editLoggedInUserInfo(editedUserInfo)
     },
-    [editUser, user.id]
+    [editUser, user.id, editLoggedInUserInfo]
   )
-
-  console.log("DATA", data)
 
   const themeColor = useMemo(
     () =>

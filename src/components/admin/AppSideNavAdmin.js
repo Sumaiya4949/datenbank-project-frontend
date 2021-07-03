@@ -12,7 +12,7 @@ import { BlockOutlined } from "@ant-design/icons"
 const { SubMenu } = Menu
 
 export default function AppSideNavAdmin() {
-  const { loggedInUser } = useContext(AuthContext)
+  const { loggedInUser, editLoggedInUserInfo } = useContext(AuthContext)
 
   // const { id } = loggedInUser
 
@@ -23,7 +23,10 @@ export default function AppSideNavAdmin() {
   if (error) return "Error"
 
   return (
-    <AppSideNav loggedInUser={loggedInUser}>
+    <AppSideNav
+      loggedInUser={loggedInUser}
+      editLoggedInUserInfo={editLoggedInUserInfo}
+    >
       <Menu.Item key="overview" icon={<SolutionOutlined />}>
         <Link to="/">Overview</Link>
       </Menu.Item>

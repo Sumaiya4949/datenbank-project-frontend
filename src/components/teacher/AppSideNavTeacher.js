@@ -11,7 +11,7 @@ import Loader from "../Loader"
 const { SubMenu } = Menu
 
 export default function AppSideNavTeacher() {
-  const { loggedInUser } = useContext(AuthContext)
+  const { loggedInUser, editLoggedInUserInfo } = useContext(AuthContext)
 
   const { id } = loggedInUser
 
@@ -24,11 +24,10 @@ export default function AppSideNavTeacher() {
   if (error) return "Error"
 
   return (
-    <AppSideNav loggedInUser={loggedInUser}>
-      {/* <Menu.Item key="subjects" icon={<SolutionOutlined />}>
-        <Link to="/mypupils">My Pupils</Link>
-      </Menu.Item> */}
-
+    <AppSideNav
+      loggedInUser={loggedInUser}
+      editLoggedInUserInfo={editLoggedInUserInfo}
+    >
       <SubMenu key="classes" icon={<ReadOutlined />} title="All Subjects">
         {data.teacher.teaches.map((subject) => (
           <Menu.Item key={subject.id}>

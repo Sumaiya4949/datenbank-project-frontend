@@ -15,7 +15,7 @@ import { QUERY_PUPIL_CLASS_AND_SUBJECTS } from "../../queries"
 const { SubMenu } = Menu
 
 export default function AppSideNavPupil() {
-  const { loggedInUser } = useContext(AuthContext)
+  const { loggedInUser, editLoggedInUserInfo } = useContext(AuthContext)
 
   const { id } = loggedInUser
 
@@ -26,7 +26,10 @@ export default function AppSideNavPupil() {
   if (error) return "Error"
 
   return (
-    <AppSideNav loggedInUser={loggedInUser}>
+    <AppSideNav
+      loggedInUser={loggedInUser}
+      editLoggedInUserInfo={editLoggedInUserInfo}
+    >
       <Menu.Item key="overview" icon={<SolutionOutlined />}>
         <Link to="/">Overview</Link>
       </Menu.Item>
