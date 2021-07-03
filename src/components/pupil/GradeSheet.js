@@ -81,7 +81,7 @@ export default function GradeSheet(props) {
   return (
     <>
       <Typography.Title>My Gradesheet</Typography.Title>
-      <Table columns={columns} dataSource={tableData} />
+      <Table pagination={false} columns={columns} dataSource={tableData} />
     </>
   )
 }

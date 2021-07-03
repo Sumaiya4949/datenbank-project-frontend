@@ -117,3 +117,21 @@ export const QUERY_TEACHER_SUBJECTS = gql`
     }
   }
 `
+
+export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
+  query TeacherSubjectOverview($id: ID!, $subjectId: ID!) {
+    teacher(id: $id) {
+      teaches(id: $subjectId) {
+        id
+        name
+        className
+
+        tests {
+          id
+          name
+          date
+        }
+      }
+    }
+  }
+`
