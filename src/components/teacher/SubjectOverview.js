@@ -3,10 +3,12 @@ import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import TestCreator from "./TestCreator"
-import { DeleteOutlined, EditOutlined, InfoOutlined } from "@ant-design/icons"
+import { DeleteOutlined, InfoOutlined } from "@ant-design/icons"
 import Loader from "../Loader"
+import { useMemo } from "react"
+import TestInfoEditor from "./TestInfoEditor"
 
-const testTableColumns = [
+const testTableStaticColumns = [
   {
     title: "Test ID",
     dataIndex: "id",
@@ -22,26 +24,6 @@ const testTableColumns = [
     dataIndex: "date",
     key: "date",
     render: (date) => new Date(parseInt(date, 10)).toLocaleDateString(),
-  },
-  {
-    title: "Actions",
-    key: "actions",
-    render: (text, record) => (
-      <Space size="middle">
-        <Button>
-          <InfoOutlined />
-          Details
-        </Button>
-
-        <Button type="primary" shape="circle">
-          <EditOutlined />
-        </Button>
-
-        <Button type="primary" danger shape="circle">
-          <DeleteOutlined />
-        </Button>
-      </Space>
-    ),
   },
 ]
 
@@ -83,11 +65,42 @@ export default function SubjectOverview(props) {
     },
   })
 
+  const subject = data?.teacher?.teaches[0] || {}
+  const { name, id, className, tests, pupils } = subject
+
+  const testTableColumns = useMemo(
+    () => [
+      ...testTableStaticColumns,
+      {
+        title: "Actions",
+        key: "actions",
+        render: (text, record) => (
+          <Space size="middle">
+            <Button>
+              <InfoOutlined />
+              Details
+            </Button>
+
+            <TestInfoEditor
+              test={record}
+              subjectId={subjectId}
+              teacherId={teacherId}
+              subjectName={name}
+              classLabel={className}
+            />
+
+            <Button type="primary" danger shape="circle">
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        ),
+      },
+    ],
+    [className, name, subjectId, teacherId]
+  )
+
   if (loading) return <Loader />
   if (error) return "Error"
-
-  const subject = data.teacher.teaches[0]
-  const { name, id, className, tests, pupils } = subject
 
   const pupilsWithAvgGrade = pupils.map((pupil) => {
     return {

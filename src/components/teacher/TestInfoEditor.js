@@ -1,16 +1,16 @@
 import { useCallback, useState } from "react"
 import { Button, Modal, Form } from "antd"
-import { PlusSquareOutlined } from "@ant-design/icons"
+import { EditOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { useMutation } from "@apollo/client"
-import { MUTATION_ADD_TEST } from "../../mutations"
+import { MUTATION_EDIT_TEST } from "../../mutations"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import TestInfoForm from "../forms/TestInfoForm"
 
-export default function TestCreator(props) {
-  const { subjectId, teacherId, subjectName, classLabel } = props
+export default function TestInfoEditor(props) {
+  const { test, subjectId, teacherId, subjectName, classLabel } = props
 
-  const [createTest] = useMutation(MUTATION_ADD_TEST)
+  const [editTest] = useMutation(MUTATION_EDIT_TEST)
 
   const [form] = Form.useForm()
 
@@ -20,8 +20,9 @@ export default function TestCreator(props) {
     try {
       const values = await form.validateFields()
 
-      await createTest({
+      await editTest({
         variables: {
+          id: test.id,
           subjectId,
           teacherId,
           test: {
@@ -45,23 +46,30 @@ export default function TestCreator(props) {
     } catch (err) {
       console.log(err.message)
     }
-  }, [form, subjectId, teacherId, createTest])
+  }, [form, subjectId, teacherId, editTest, test.id])
 
   return (
     <>
-      <Button type="primary" onClick={() => setModalOpen(true)}>
-        <PlusSquareOutlined /> Add a test
+      <Button type="primary" shape="circle" onClick={() => setModalOpen(true)}>
+        <EditOutlined />
       </Button>
 
       <Modal
         visible={isModalOpen}
-        title="Create Test"
-        okText="Create"
+        title="Edit Test"
+        okText="Edit"
         cancelText="Cancel"
         onCancel={() => setModalOpen(false)}
         onOk={onSubmit}
       >
-        <TestInfoForm form={form} breadcrumbs={[classLabel, subjectName]} />
+        <TestInfoForm
+          form={form}
+          breadcrumbs={[classLabel, subjectName, test.name]}
+          initialValues={{
+            name: test.name,
+            date: moment(parseInt(test.date, 10)),
+          }}
+        />
       </Modal>
     </>
   )

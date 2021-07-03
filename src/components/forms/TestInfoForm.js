@@ -2,16 +2,14 @@ import { Form, DatePicker, Radio, Breadcrumb } from "antd"
 import moment from "moment"
 
 export default function TestInfoForm(props) {
-  const { form, breadcrumbs } = props
+  const { form, breadcrumbs, initialValues = {} } = props
 
   return (
     <Form
       form={form}
       layout="vertical"
       name="form_in_modal"
-      initialValues={{
-        modifier: "public",
-      }}
+      initialValues={initialValues}
     >
       <Breadcrumb>
         {breadcrumbs.map((crumb) => (
@@ -22,7 +20,7 @@ export default function TestInfoForm(props) {
       <br />
 
       <Form.Item
-        name="testName"
+        name="name"
         label="Name of the test"
         className="collection-create-form_last-form-item"
         rules={[
