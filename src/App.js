@@ -4,12 +4,13 @@ import { AuthContext } from "./contexts"
 import { Route, Switch, Redirect } from "react-router-dom"
 import HomePage from "./routes/HomePage"
 import InvalidRoute from "./routes/InvalidRoute"
-import { Layout, Button, notification } from "antd"
+import { Layout, Button, notification, Modal } from "antd"
 import { useCallback } from "react"
 import AppSideNavPupil from "./components/pupil/AppSideNavPupil"
 import RouteBreadcrumbs from "./components/RouteBreadcrumbs"
 import AppSideNavAdmin from "./components/admin/AppSideNavAdmin"
 import AppSideNavTeacher from "./components/teacher/AppSideNavTeacher"
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 
 const { Header, Content } = Layout
 
@@ -19,15 +20,24 @@ function App() {
   const { loggedInUser, logout } = auth
 
   const logOutAndNotify = useCallback(async () => {
-    const { error } = await logout()
+    Modal.confirm({
+      title: "Are you sure?",
+      icon: <ExclamationCircleOutlined />,
 
-    const label = error ? "error" : "success"
-    const message = error ? "Logout unsuccessful" : "Successfully logged out"
-    const description = error ? error.message : ""
+      async onOk() {
+        const { error } = await logout()
 
-    notification[label]({
-      message,
-      description,
+        const label = error ? "error" : "success"
+        const message = error
+          ? "Logout unsuccessful"
+          : "Successfully logged out"
+        const description = error ? error.message : ""
+
+        notification[label]({
+          message,
+          description,
+        })
+      },
     })
   }, [logout])
 
