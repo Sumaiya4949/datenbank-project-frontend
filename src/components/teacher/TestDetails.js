@@ -37,7 +37,7 @@ export default function TestDetails(props) {
   const testId = params.id
 
   const { data, error, loading } = useQuery(QUERY_TEST_DETAILS, {
-    variables: { id: testId },
+    variables: { id: testId, teacherId },
   })
 
   if (loading) return <Loader />

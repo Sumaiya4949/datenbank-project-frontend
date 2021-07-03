@@ -151,8 +151,8 @@ export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
 `
 
 export const QUERY_TEST_DETAILS = gql`
-  query TestDetails($id: ID!) {
-    test(id: $id) {
+  query TestDetails($id: ID!, $teacherId: ID!) {
+    test(id: $id, teacherId: $teacherId) {
       id
       name
       date
