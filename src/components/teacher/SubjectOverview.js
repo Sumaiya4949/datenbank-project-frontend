@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
-import { useRouteMatch } from "react-router-dom"
+import { useRouteMatch, Link } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import TestCreator from "./TestCreator"
 import { DeleteOutlined, InfoOutlined } from "@ant-design/icons"
@@ -76,10 +76,12 @@ export default function SubjectOverview(props) {
         key: "actions",
         render: (text, record) => (
           <Space size="middle">
-            <Button>
-              <InfoOutlined />
-              Details
-            </Button>
+            <Link to={`/tests/${record.id}`}>
+              <Button>
+                <InfoOutlined />
+                Details
+              </Button>
+            </Link>
 
             <TestInfoEditor
               test={record}

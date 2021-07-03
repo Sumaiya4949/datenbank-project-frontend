@@ -149,3 +149,22 @@ export const QUERY_TEACHER_SUBJECT_OVERVIEW = gql`
     }
   }
 `
+
+export const QUERY_TEST_DETAILS = gql`
+  query TestDetails($id: ID!) {
+    test(id: $id) {
+      id
+      name
+      date
+      subjectName
+
+      pupils {
+        id
+        username
+        forename
+        surname
+        score(testId: $id)
+      }
+    }
+  }
+`

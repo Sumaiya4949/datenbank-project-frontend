@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import SubjectOverview from "./SubjectOverview"
 import { AuthContext } from "../../contexts"
 import { Typography } from "antd"
+import TestDetails from "./TestDetails"
 
 export default function TeacherHomePage() {
   const { loggedInUser } = useContext(AuthContext)
@@ -11,6 +12,9 @@ export default function TeacherHomePage() {
     <Switch>
       <Route exact path="/subjects/:id">
         <SubjectOverview teacherId={loggedInUser.id} />
+      </Route>
+      <Route exact path="/tests/:id">
+        <TestDetails teacherId={loggedInUser.id} />
       </Route>
       <Route>
         <Typography.Text strong>
