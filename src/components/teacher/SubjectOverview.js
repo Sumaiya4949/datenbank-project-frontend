@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client"
 import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
-import TestCreator from "../forms/TestCreator"
+import TestCreator from "./TestCreator"
 import { DeleteOutlined, EditOutlined, InfoOutlined } from "@ant-design/icons"
 import Loader from "../Loader"
 

@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react"
-import { Button, Modal, Form, DatePicker, Radio, Breadcrumb } from "antd"
+import { Button, Modal, Form } from "antd"
 import { PlusSquareOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { useMutation } from "@apollo/client"
 import { MUTATION_ADD_TEST } from "../../mutations"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
+import TestInfoForm from "../forms/TestInfoForm"
 
 export default function TestCreator(props) {
   const { subjectId, teacherId, subjectName, classLabel } = props
@@ -62,56 +63,7 @@ export default function TestCreator(props) {
         onCancel={() => setModalOpen(false)}
         onOk={onSubmit}
       >
-        <Form
-          form={form}
-          layout="vertical"
-          name="form_in_modal"
-          initialValues={{
-            modifier: "public",
-          }}
-        >
-          <Breadcrumb>
-            <Breadcrumb.Item>{classLabel}</Breadcrumb.Item>
-            <Breadcrumb.Item>{subjectName}</Breadcrumb.Item>
-          </Breadcrumb>
-
-          <br />
-
-          <Form.Item
-            name="testName"
-            label="Name of the test"
-            className="collection-create-form_last-form-item"
-            rules={[
-              {
-                required: true,
-                message: "Test must have a name",
-              },
-            ]}
-          >
-            <Radio.Group>
-              <Radio value="Quiz">Quiz</Radio>
-              <Radio value="Mock">Mock</Radio>
-              <Radio value="Final">Final</Radio>
-            </Radio.Group>
-          </Form.Item>
-
-          <Form.Item
-            name="date"
-            label="Date of exam"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <DatePicker
-              disabledDate={(current) =>
-                current && current < moment().endOf("day")
-              }
-            />
-          </Form.Item>
-        </Form>
+        <TestInfoForm form={form} breadcrumbs={[classLabel, subjectName]} />
       </Modal>
     )
 }
