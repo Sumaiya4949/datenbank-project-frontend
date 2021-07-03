@@ -3,7 +3,6 @@ import { Typography, Row, Col, Statistic, Table } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import Loader from "../Loader"
-import UserList from "../UserList"
 
 const testTableColumns = [
   {

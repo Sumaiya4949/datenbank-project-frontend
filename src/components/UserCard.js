@@ -1,4 +1,4 @@
-import { Card, Avatar, Tag } from "antd"
+import { Card, Avatar, Modal, Tag } from "antd"
 import {
   EditOutlined,
   EllipsisOutlined,
@@ -9,6 +9,8 @@ import studentImg from "../assets/images/student.jpeg"
 import adminImg from "../assets/images/admin.png"
 import teacherImg from "../assets/images/teacher.png"
 import styles from "../styles/UserCard.module.css"
+import { useState } from "react"
+import UserInfoForm from "./forms/UserInfoForm"
 
 const { Meta } = Card
 
@@ -16,6 +18,17 @@ export default function UserCard(props) {
   const { user } = props
 
   const { role, forename, surname, username } = user
+
+  const [visible, setVisible] = useState(false)
+
+  const showModal = () => {
+    setVisible(true)
+  }
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button")
+    setVisible(false)
+  }
 
   const themeColor =
     role === "pupil"
@@ -45,7 +58,7 @@ export default function UserCard(props) {
       }
       actions={[
         <SettingOutlined key="setting" />,
-        <EditOutlined key="edit" />,
+        <EditOutlined key="edit" onClick={showModal} />,
         <EllipsisOutlined key="ellipsis" />,
       ]}
     >
@@ -61,6 +74,15 @@ export default function UserCard(props) {
           <div className={styles.userDetails}>
             <i>@{username}</i>
             <Tag color={themeColor}>{role} account</Tag>
+
+            <Modal
+              title="Edit your basic info"
+              visible={visible}
+              footer={null}
+              onCancel={handleCancel}
+            >
+              <UserInfoForm user={user} onSubmit={() => setVisible(false)} />
+            </Modal>
           </div>
         }
       />
