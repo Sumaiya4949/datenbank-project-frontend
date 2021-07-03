@@ -59,3 +59,19 @@ export const MUTATION_EDIT_TEST = gql`
     }
   }
 `
+
+export const MUTATION_EDIT_SCORE = gql`
+  mutation EditScoreOfStudent(
+    $teacherId: ID!
+    $pupilId: ID!
+    $testId: ID!
+    $score: Float!
+  ) {
+    score: editScore(
+      teacherId: $teacherId
+      pupilId: $pupilId
+      testId: $testId
+      score: $score
+    )
+  }
+`

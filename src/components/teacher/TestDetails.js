@@ -1,11 +1,12 @@
-import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
-import { EditOutlined, InfoOutlined } from "@ant-design/icons"
+import { Typography, Row, Col, Statistic, Table, Space } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { useQuery } from "@apollo/client"
 import { QUERY_TEST_DETAILS } from "../../queries"
 import Loader from "../Loader"
+import { useMemo } from "react"
+import ScoreChanger from "./ScoreChanger"
 
-const pupilTableColumns = [
+const pupilTableStaticColumns = [
   {
     title: "Username",
     dataIndex: "username",
@@ -28,18 +29,6 @@ const pupilTableColumns = [
     key: "score",
     render: (grade) => `${grade}%`,
   },
-  {
-    title: "Actions",
-    key: "actions",
-    render: (text, record) => (
-      <Space size="middle">
-        <Button type="primary">
-          <EditOutlined />
-          Change Score
-        </Button>
-      </Space>
-    ),
-  },
 ]
 
 export default function TestDetails(props) {
@@ -52,17 +41,43 @@ export default function TestDetails(props) {
     variables: { id: testId, teacherId },
   })
 
+  const { date, id, name, subjectName, pupils } = data?.test || {}
+
+  const pupilsWithGrade = useMemo(() => {
+    if (!pupils) return []
+    return pupils.map((pupil) => {
+      return {
+        ...pupil,
+        key: pupil.id,
+      }
+    })
+  }, [pupils])
+
+  const pupilTableColumns = useMemo(
+    () => [
+      ...pupilTableStaticColumns,
+      {
+        title: "Actions",
+        key: "actions",
+        render: (text, record) => (
+          <Space size="middle">
+            <ScoreChanger
+              subjectName={subjectName}
+              teacherId={teacherId}
+              pupil={record}
+              testId={id}
+              testName={name}
+              currentScore={record.score}
+            />
+          </Space>
+        ),
+      },
+    ],
+    [id, name, subjectName, teacherId]
+  )
+
   if (loading) return <Loader />
   if (error) return "Error"
-
-  const { date, id, name, subjectName, pupils } = data.test
-
-  const pupilsWithGrade = pupils.map((pupil) => {
-    return {
-      ...pupil,
-      key: pupil.id,
-    }
-  })
 
   return (
     <div>
