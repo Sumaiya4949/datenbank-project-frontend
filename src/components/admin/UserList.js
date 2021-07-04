@@ -1,9 +1,5 @@
 import React from "react"
-import {
-  UserOutlined,
-  UserDeleteOutlined,
-  PaperClipOutlined,
-} from "@ant-design/icons"
+import { UserOutlined, UserDeleteOutlined } from "@ant-design/icons"
 import {
   List,
   Tag,
@@ -15,6 +11,7 @@ import {
 } from "antd"
 import { Collapse } from "antd"
 import PupilAssigner from "./PupilAssigner"
+import PupilDeassigner from "./PupilDeassigner"
 
 const { Panel } = Collapse
 
@@ -82,10 +79,7 @@ export default function UserList(props) {
                     )}
 
                     {role === "pupil" && user.className && (
-                      <Button type="text" span={3} danger>
-                        <PaperClipOutlined />
-                        Unassign Class
-                      </Button>
+                      <PupilDeassigner pupil={user} />
                     )}
 
                     <Button type="text" span={3} danger>

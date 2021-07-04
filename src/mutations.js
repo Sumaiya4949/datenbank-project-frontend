@@ -129,3 +129,9 @@ export const MUTATION_ASSIGN_PUPIL = gql`
     assignPupil(adminId: $adminId, pupilId: $pupilId, class: $class)
   }
 `
+
+export const MUTATION_DEASSIGN_PUPIL = gql`
+  mutation DeassignPupil($adminId: ID!, $pupilId: ID!) {
+    deassignPupil(adminId: $adminId, pupilId: $pupilId)
+  }
+`
