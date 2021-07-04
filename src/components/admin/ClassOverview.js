@@ -98,35 +98,55 @@ export default function ClassOverview(props) {
         dataSource={classDetails.subjects}
         grid={gridParams}
         renderItem={(subject) => (
-          <List.Item style={{ backgroundColor: "white", padding: "1.5rem" }}>
+          <List.Item
+            style={{
+              backgroundColor: "white",
+              padding: "1.5rem",
+            }}
+          >
             <List.Item.Meta
               avatar={
                 <Avatar
-                  icon={<ReadOutlined />}
-                  style={{ backgroundColor: "#8a2be2" }}
+                  icon={
+                    subject.isArchived ? <LockOutlined /> : <ReadOutlined />
+                  }
+                  style={{
+                    backgroundColor: subject.isArchived ? "crimson" : "#8a2be2",
+                  }}
                 />
               }
               title={
-                <Typography.Title level={5}>{subject.name}</Typography.Title>
+                <Typography.Title level={5}>
+                  {subject.name}
+                  {subject.isArchived && (
+                    <span style={{ color: "gray", fontWeight: "normal" }}>
+                      &nbsp;&nbsp;(archived)
+                    </span>
+                  )}
+                </Typography.Title>
               }
               description={
                 <Space direction="vertical">
                   <Typography.Text>{subject.id}</Typography.Text>
 
                   <Space direction="horizontal">
-                    <Button
-                      type="text"
-                      style={{ color: "teal" }}
-                      onClick={() => archiveSubjectOnConfirm(subject.id)}
-                    >
-                      <LockOutlined />
-                      Archive
-                    </Button>
+                    {!subject.isArchived && (
+                      <>
+                        <Button
+                          type="text"
+                          style={{ color: "teal" }}
+                          onClick={() => archiveSubjectOnConfirm(subject.id)}
+                        >
+                          <LockOutlined />
+                          Archive
+                        </Button>
 
-                    <Button type="text" danger>
-                      <DeleteOutlined />
-                      Delete
-                    </Button>
+                        <Button type="text" danger>
+                          <DeleteOutlined />
+                          Delete
+                        </Button>
+                      </>
+                    )}
                   </Space>
                 </Space>
               }

@@ -112,6 +112,7 @@ export const QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS = gql`
       subjects {
         id
         name
+        isArchived
       }
     }
   }
