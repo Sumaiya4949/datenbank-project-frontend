@@ -141,3 +141,20 @@ export const MUTATION_DELETE_TEST = gql`
     deleteTest(teacherId: $teacherId, testId: $testId)
   }
 `
+export const MUTATION_DELETE_PUPIL = gql`
+  mutation DeletePupil($adminId: ID!, $id: ID!) {
+    response: deletePupil(adminId: $adminId, id: $id) {
+      success
+      message
+    }
+  }
+`
+
+export const MUTATION_DELETE_TEACHER = gql`
+  mutation DeletePupil($adminId: ID!, $id: ID!) {
+    response: deleteTeacher(adminId: $adminId, id: $id) {
+      success
+      message
+    }
+  }
+`
