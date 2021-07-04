@@ -7,8 +7,9 @@ import "antd/dist/antd.css"
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 
 const apolloClient = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  uri: "http://localhost:3000/graphql",
   cache: new InMemoryCache(),
+  credentials: "include",
 })
 
 ReactDOM.render(
