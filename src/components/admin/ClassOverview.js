@@ -54,6 +54,14 @@ export default function ClassOverview(props) {
                 adminId,
                 subjectId,
               },
+              refetchQueries: [
+                {
+                  query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+                  variables: {
+                    name: params.className,
+                  },
+                },
+              ],
             })
 
             notification["success"]({
@@ -67,7 +75,7 @@ export default function ClassOverview(props) {
         },
       })
     },
-    [adminId, archiveSubject]
+    [adminId, archiveSubject, params.className]
   )
 
   if (loading) return <Loader />
@@ -116,20 +124,19 @@ export default function ClassOverview(props) {
                 />
               }
               title={
-                <Typography.Title level={5}>
-                  {subject.name}
-                  {subject.isArchived && (
-                    <span style={{ color: "gray", fontWeight: "normal" }}>
-                      &nbsp;&nbsp;(archived)
-                    </span>
-                  )}
-                </Typography.Title>
+                <Typography.Title level={5}>{subject.name}</Typography.Title>
               }
               description={
                 <Space direction="vertical">
                   <Typography.Text>{subject.id}</Typography.Text>
 
                   <Space direction="horizontal">
+                    {subject.isArchived && (
+                      <i style={{ color: "teal", fontWeight: "bold" }}>
+                        (Archived)
+                      </i>
+                    )}
+
                     {!subject.isArchived && (
                       <>
                         {/* Only subjects having tests can be archived */}
@@ -144,10 +151,13 @@ export default function ClassOverview(props) {
                           </Button>
                         )}
 
-                        <Button type="text" danger>
-                          <DeleteOutlined />
-                          Delete
-                        </Button>
+                        {/* Only subjects without dependent tests can be removed */}
+                        {!subject.tests.length && (
+                          <Button type="text" danger>
+                            <DeleteOutlined />
+                            Delete
+                          </Button>
+                        )}
                       </>
                     )}
                   </Space>
