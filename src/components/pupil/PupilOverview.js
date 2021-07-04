@@ -18,7 +18,7 @@ export default function PupilOverview(props) {
 
   if (error) return "Error"
 
-  const { appearsIn, subjects } = data?.pupil
+  const { appearsIn, subjects, className } = data?.pupil
 
   const avgGrade =
     appearsIn.map((item) => item.score).reduce((x, y) => x + y) /
@@ -44,8 +44,11 @@ export default function PupilOverview(props) {
           <b>@{username}</b>
         </i>
       </Item>
-      <Item label="Account Type" span={3}>
+      <Item label="Account Type" span={2}>
         <Tag color={"green"}>{role} account</Tag>
+      </Item>
+      <Item label="Class" span={1}>
+        {className}
       </Item>
       <Item label="Total Subjects" span={1}>
         {subjects.length || 0}

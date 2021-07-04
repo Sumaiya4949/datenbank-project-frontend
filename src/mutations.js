@@ -123,3 +123,9 @@ export const MUTATION_DELETE_SUBJECT = gql`
     }
   }
 `
+
+export const MUTATION_ASSIGN_PUPIL = gql`
+  mutation AssignPupil($adminId: ID!, $pupilId: ID!, $class: String!) {
+    assignPupil(adminId: $adminId, pupilId: $pupilId, class: $class)
+  }
+`

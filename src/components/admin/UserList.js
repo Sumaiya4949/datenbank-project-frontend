@@ -14,6 +14,7 @@ import {
   Button,
 } from "antd"
 import { Collapse } from "antd"
+import PupilAssigner from "./PupilAssigner"
 
 const { Panel } = Collapse
 
@@ -77,14 +78,7 @@ export default function UserList(props) {
                 <Descriptions.Item>
                   <Space direction="vertical">
                     {role === "pupil" && (
-                      <Button
-                        type="text"
-                        style={{ color: user.className ? "blue" : "green" }}
-                        span={3}
-                      >
-                        <PaperClipOutlined />
-                        {user.className ? "Change Class" : "Assign to Class"}
-                      </Button>
+                      <PupilAssigner pupil={user} pupilClass={user.className} />
                     )}
 
                     {role === "pupil" && user.className && (

@@ -51,6 +51,7 @@ export const QUERY_PUPIL_OVERVIEW = gql`
         id
         score
       }
+      className
     }
   }
 `

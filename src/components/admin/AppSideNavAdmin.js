@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { AuthContext } from "../../contexts"
 import AppSideNav from "../AppSideNav"
 import { Link } from "react-router-dom"
@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client"
 import { QUERY_ALL_CLASSES } from "../../queries"
 import Loader from "../Loader"
 import { BlockOutlined, ReadOutlined } from "@ant-design/icons"
+import { allClassesVar } from "../../global-states"
 
 const { SubMenu } = Menu
 
@@ -21,6 +22,15 @@ export default function AppSideNavAdmin() {
     error: errorLoadingClasses,
     data: classesData,
   } = useQuery(QUERY_ALL_CLASSES)
+
+  useEffect(
+    function updateGlobalState() {
+      if (classesData) {
+        allClassesVar(classesData.classes.map((cls) => cls.name))
+      }
+    },
+    [classesData]
+  )
 
   if (classesLoading) return <Loader />
 
