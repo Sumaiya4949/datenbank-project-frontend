@@ -132,14 +132,17 @@ export default function ClassOverview(props) {
                   <Space direction="horizontal">
                     {!subject.isArchived && (
                       <>
-                        <Button
-                          type="text"
-                          style={{ color: "teal" }}
-                          onClick={() => archiveSubjectOnConfirm(subject.id)}
-                        >
-                          <LockOutlined />
-                          Archive
-                        </Button>
+                        {/* Only subjects having tests can be archived */}
+                        {!!subject.tests.length && (
+                          <Button
+                            type="text"
+                            style={{ color: "teal" }}
+                            onClick={() => archiveSubjectOnConfirm(subject.id)}
+                          >
+                            <LockOutlined />
+                            Archive
+                          </Button>
+                        )}
 
                         <Button type="text" danger>
                           <DeleteOutlined />
