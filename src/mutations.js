@@ -89,7 +89,20 @@ export const MUTATION_CREATE_CLASS = gql`
 `
 
 export const MUTATION_CREATE_SUBJECT = gql`
-  mutation CreateClass($adminId: ID!, $class: String!) {
-    createClass(adminId: $adminId, class: $class)
+  mutation CreateSubject(
+    $adminId: ID!
+    $teacherId: ID!
+    $class: String!
+    $name: String!
+  ) {
+    createSubject(
+      adminId: $adminId
+      teacherId: $teacherId
+      class: $class
+      name: $name
+    ) {
+      id
+      name
+    }
   }
 `

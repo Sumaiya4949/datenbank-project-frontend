@@ -7,7 +7,9 @@ import { AuthContext } from "../../contexts"
 import { QUERY_ADMIN_ALL_TEACHERS, QUERY_ALL_CLASSES } from "../../queries"
 import Loader from "../Loader"
 
-export default function SubjectCreator() {
+export default function SubjectCreator(props) {
+  const { classLabel } = props
+
   const { loggedInUser } = useContext(AuthContext)
 
   const {
@@ -29,8 +31,9 @@ export default function SubjectCreator() {
       await createSubject({
         variables: {
           adminId: loggedInUser.id,
-          name,
           teacherId,
+          name,
+          class: classLabel,
         },
         refetchQueries: [{ query: QUERY_ALL_CLASSES }],
       })
@@ -45,7 +48,7 @@ export default function SubjectCreator() {
         message: err.message,
       })
     }
-  }, [form, createSubject, loggedInUser.id])
+  }, [form, createSubject, loggedInUser.id, classLabel])
 
   if (loadingTeachers) return <Loader />
 
@@ -66,7 +69,7 @@ export default function SubjectCreator() {
 
       <Modal
         visible={isModalOpen}
-        title={`Create a new subject`}
+        title={`Create a new subject in class ${classLabel}`}
         okText="Create"
         cancelText="Cancel"
         onCancel={() => setModalOpen(false)}
