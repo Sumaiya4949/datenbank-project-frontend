@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from "@apollo/client"
 import { Typography } from "antd"
 import { useRouteMatch } from "react-router-dom"
-import { QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS } from "../../queries"
+import {
+  QUERY_ALL_CLASSES,
+  QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+} from "../../queries"
+import { useHistory } from "react-router-dom"
 import Loader from "../Loader"
 import UserList from "./UserList"
 import { List, Avatar, Space, Button, Modal, notification } from "antd"
@@ -16,6 +20,7 @@ import { useCallback } from "react"
 import {
   MUTATION_ARCHIVE_SUBJECT,
   MUTATION_DELETE_SUBJECT,
+  MUTATION_DELETE_CLASS,
 } from "../../mutations"
 
 const gridParams = {
@@ -33,6 +38,8 @@ export default function ClassOverview(props) {
 
   const { params } = useRouteMatch()
 
+  const history = useHistory()
+
   const { loading, data, error } = useQuery(
     QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
     {
@@ -44,6 +51,7 @@ export default function ClassOverview(props) {
 
   const [archiveSubject] = useMutation(MUTATION_ARCHIVE_SUBJECT)
   const [deleteSubject] = useMutation(MUTATION_DELETE_SUBJECT)
+  const [deleteClass] = useMutation(MUTATION_DELETE_CLASS)
 
   const archiveSubjectOnConfirm = useCallback(
     (subjectId) => {
@@ -119,6 +127,43 @@ export default function ClassOverview(props) {
     [adminId, deleteSubject, params.className]
   )
 
+  const deleteThisClassOnConfirm = useCallback(() => {
+    Modal.confirm({
+      title: `Do you want to delete this class?`,
+      icon: <ExclamationCircleOutlined />,
+      content:
+        "This unassigns the pupils and teachers, and also deletes its (unarchived) subjects ",
+
+      async onOk() {
+        try {
+          await deleteClass({
+            variables: {
+              adminId,
+              class: params.className,
+            },
+            refetchQueries: [
+              {
+                query: QUERY_ALL_CLASSES,
+              },
+            ],
+          })
+
+          history.push("/")
+
+          notification["success"]({
+            message: "Successfully deleted class",
+          })
+
+          setTimeout(() => window.location.reload(), 2000)
+        } catch (err) {
+          notification["error"]({
+            message: err.message,
+          })
+        }
+      },
+    })
+  }, [adminId, deleteClass, params.className, history])
+
   if (loading) return <Loader />
   if (error) return "Error"
 
@@ -129,7 +174,17 @@ export default function ClassOverview(props) {
       <Typography.Title leve={2}>Class: {params.className}</Typography.Title>
 
       <Space>
-        <SubjectCreator classLabel={params.className} />
+        <SubjectCreator />
+
+        <Button
+          danger
+          size="large"
+          type="primary"
+          shape="round"
+          onClick={deleteThisClassOnConfirm}
+        >
+          Delete this class
+        </Button>
       </Space>
 
       <br />
