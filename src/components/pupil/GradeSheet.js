@@ -15,6 +15,11 @@ const columns = [
     key: "subjectName",
   },
   {
+    title: "Class Name",
+    dataIndex: "className",
+    key: "className",
+  },
+  {
     title: "Avg. Grade",
     dataIndex: "avgGrade",
     key: "avgGrade",
