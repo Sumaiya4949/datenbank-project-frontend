@@ -74,6 +74,7 @@ export const QUERY_ADMIN_ALL_USERS = gql`
       username
       forename
       surname
+      className
     }
   }
 `
@@ -107,6 +108,7 @@ export const QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS = gql`
         username
         forename
         surname
+        className
       }
 
       subjects {

@@ -1,5 +1,9 @@
 import React from "react"
-import { UserOutlined, UserDeleteOutlined } from "@ant-design/icons"
+import {
+  UserOutlined,
+  UserDeleteOutlined,
+  PaperClipOutlined,
+} from "@ant-design/icons"
 import {
   List,
   Tag,
@@ -65,11 +69,36 @@ export default function UserList(props) {
                 <Descriptions.Item label="Surname" span={3}>
                   {user.surname}
                 </Descriptions.Item>
+                {role === "pupil" && (
+                  <Descriptions.Item label="Class" span={3}>
+                    {user.className || <b>Unassigned</b>}
+                  </Descriptions.Item>
+                )}
                 <Descriptions.Item>
-                  <Button type="text" span={3} danger>
-                    <UserDeleteOutlined />
-                    Delete {role}
-                  </Button>
+                  <Space direction="vertical">
+                    {role === "pupil" && (
+                      <Button
+                        type="text"
+                        style={{ color: user.className ? "blue" : "green" }}
+                        span={3}
+                      >
+                        <PaperClipOutlined />
+                        {user.className ? "Change Class" : "Assign to Class"}
+                      </Button>
+                    )}
+
+                    {role === "pupil" && user.className && (
+                      <Button type="text" span={3} danger>
+                        <PaperClipOutlined />
+                        Unassign Class
+                      </Button>
+                    )}
+
+                    <Button type="text" span={3} danger>
+                      <UserDeleteOutlined />
+                      Delete {role}
+                    </Button>
+                  </Space>
                 </Descriptions.Item>
               </Descriptions>
             </Panel>
