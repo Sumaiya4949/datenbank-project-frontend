@@ -4,6 +4,7 @@ import { QUERY_ADMIN_ALL_USERS } from "../../queries"
 import Loader from "../Loader"
 import UserList from "../UserList"
 import UserCreator from "./UserCreator"
+import ClassCreator from "./ClassCreator"
 
 export default function AdminOverview() {
   const { loading, error, data } = useQuery(QUERY_ADMIN_ALL_USERS)
@@ -17,6 +18,7 @@ export default function AdminOverview() {
     <>
       <Space>
         <UserCreator />
+        <ClassCreator />
       </Space>
       <br />
       <br />

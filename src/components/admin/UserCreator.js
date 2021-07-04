@@ -42,7 +42,7 @@ export default function UserCreator() {
 
   return (
     <>
-      <Button size="large" type="primary" onClick={() => setModalOpen(true)}>
+      <Button size="large" shape="round" onClick={() => setModalOpen(true)}>
         <UserAddOutlined /> Add User
       </Button>
 
@@ -84,7 +84,7 @@ export default function UserCreator() {
             rules={[
               {
                 required: true,
-                message: "Must have at least 4 characters",
+                message: "Must have at least 5 characters",
                 validator: (_, value) =>
                   value?.length > 4 ? Promise.resolve() : Promise.reject(),
               },
