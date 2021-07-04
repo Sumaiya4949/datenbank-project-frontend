@@ -4,7 +4,7 @@ import { AppstoreAddOutlined } from "@ant-design/icons"
 import { useMutation } from "@apollo/client"
 import { MUTATION_CREATE_CLASS } from "../../mutations"
 import { AuthContext } from "../../contexts"
-import { QUERY_ADMIN_ALL_USERS } from "../../queries"
+import { QUERY_ALL_CLASSES } from "../../queries"
 
 export default function ClassCreator() {
   const { loggedInUser } = useContext(AuthContext)
@@ -24,7 +24,7 @@ export default function ClassCreator() {
           adminId: loggedInUser.id,
           class: name,
         },
-        refetchQueries: [{ query: QUERY_ADMIN_ALL_USERS }],
+        refetchQueries: [{ query: QUERY_ALL_CLASSES }],
       })
 
       form.resetFields()
