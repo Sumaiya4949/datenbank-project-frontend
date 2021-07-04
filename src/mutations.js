@@ -114,3 +114,12 @@ export const MUTATION_ARCHIVE_SUBJECT = gql`
     }
   }
 `
+
+export const MUTATION_DELETE_SUBJECT = gql`
+  mutation DeleteSubject($adminId: ID!, $subjectId: ID!) {
+    response: deleteSubject(adminId: $adminId, subjectId: $subjectId) {
+      success
+      message
+    }
+  }
+`

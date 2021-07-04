@@ -13,7 +13,10 @@ import {
 } from "@ant-design/icons"
 import SubjectCreator from "./SubjectCreator"
 import { useCallback } from "react"
-import { MUTATION_ARCHIVE_SUBJECT } from "../../mutations"
+import {
+  MUTATION_ARCHIVE_SUBJECT,
+  MUTATION_DELETE_SUBJECT,
+} from "../../mutations"
 
 const gridParams = {
   gutter: 16,
@@ -40,6 +43,7 @@ export default function ClassOverview(props) {
   )
 
   const [archiveSubject] = useMutation(MUTATION_ARCHIVE_SUBJECT)
+  const [deleteSubject] = useMutation(MUTATION_DELETE_SUBJECT)
 
   const archiveSubjectOnConfirm = useCallback(
     (subjectId) => {
@@ -76,6 +80,43 @@ export default function ClassOverview(props) {
       })
     },
     [adminId, archiveSubject, params.className]
+  )
+
+  const deleteSubjectOnConfirm = useCallback(
+    (subjectId) => {
+      Modal.confirm({
+        title: "Are you sure to delete?",
+        icon: <ExclamationCircleOutlined />,
+
+        async onOk() {
+          try {
+            const { data } = await deleteSubject({
+              variables: {
+                adminId,
+                subjectId,
+              },
+              refetchQueries: [
+                {
+                  query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+                  variables: {
+                    name: params.className,
+                  },
+                },
+              ],
+            })
+
+            notification[data.response.success ? "success" : "error"]({
+              message: data.response.message,
+            })
+          } catch {
+            notification["error"]({
+              message: "Request failed",
+            })
+          }
+        },
+      })
+    },
+    [adminId, deleteSubject, params.className]
   )
 
   if (loading) return <Loader />
@@ -153,7 +194,11 @@ export default function ClassOverview(props) {
 
                         {/* Only subjects without dependent tests can be removed */}
                         {!subject.tests.length && (
-                          <Button type="text" danger>
+                          <Button
+                            type="text"
+                            danger
+                            onClick={() => deleteSubjectOnConfirm(subject.id)}
+                          >
                             <DeleteOutlined />
                             Delete
                           </Button>
