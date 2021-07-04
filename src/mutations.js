@@ -106,3 +106,11 @@ export const MUTATION_CREATE_SUBJECT = gql`
     }
   }
 `
+
+export const MUTATION_ARCHIVE_SUBJECT = gql`
+  mutation ArchiveSubject($adminId: ID!, $subjectId: ID!) {
+    archiveSubjectByAdmin(adminId: $adminId, subjectId: $subjectId) {
+      id
+    }
+  }
+`

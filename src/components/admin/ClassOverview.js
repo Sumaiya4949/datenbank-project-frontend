@@ -1,14 +1,33 @@
-import { useQuery } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { Typography } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS } from "../../queries"
 import Loader from "../Loader"
 import UserList from "./UserList"
-import { List, Avatar, Space } from "antd"
-import { ReadOutlined } from "@ant-design/icons"
+import { List, Avatar, Space, Button, Modal, notification } from "antd"
+import {
+  ReadOutlined,
+  DeleteOutlined,
+  LockOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons"
 import SubjectCreator from "./SubjectCreator"
+import { useCallback } from "react"
+import { MUTATION_ARCHIVE_SUBJECT } from "../../mutations"
+
+const gridParams = {
+  gutter: 16,
+  xs: 1,
+  sm: 2,
+  md: 4,
+  lg: 4,
+  xl: 6,
+  xxl: 3,
+}
 
 export default function ClassOverview(props) {
+  const { adminId } = props
+
   const { params } = useRouteMatch()
 
   const { loading, data, error } = useQuery(
@@ -18,6 +37,37 @@ export default function ClassOverview(props) {
         name: params.className,
       },
     }
+  )
+
+  const [archiveSubject] = useMutation(MUTATION_ARCHIVE_SUBJECT)
+
+  const archiveSubjectOnConfirm = useCallback(
+    (subjectId) => {
+      Modal.confirm({
+        title: "Are you sure to archive?",
+        icon: <ExclamationCircleOutlined />,
+
+        async onOk() {
+          try {
+            await archiveSubject({
+              variables: {
+                adminId,
+                subjectId,
+              },
+            })
+
+            notification["success"]({
+              message: "Successfully archived",
+            })
+          } catch {
+            notification["error"]({
+              message: "Archive failed",
+            })
+          }
+        },
+      })
+    },
+    [adminId, archiveSubject]
   )
 
   if (loading) return <Loader />
@@ -46,8 +96,9 @@ export default function ClassOverview(props) {
       <List
         itemLayout="horizontal"
         dataSource={classDetails.subjects}
+        grid={gridParams}
         renderItem={(subject) => (
-          <List.Item>
+          <List.Item style={{ backgroundColor: "white", padding: "1.5rem" }}>
             <List.Item.Meta
               avatar={
                 <Avatar
@@ -55,8 +106,30 @@ export default function ClassOverview(props) {
                   style={{ backgroundColor: "#8a2be2" }}
                 />
               }
-              title={subject.name}
-              description={subject.id}
+              title={
+                <Typography.Title level={5}>{subject.name}</Typography.Title>
+              }
+              description={
+                <Space direction="vertical">
+                  <Typography.Text>{subject.id}</Typography.Text>
+
+                  <Space direction="horizontal">
+                    <Button
+                      type="text"
+                      style={{ color: "teal" }}
+                      onClick={() => archiveSubjectOnConfirm(subject.id)}
+                    >
+                      <LockOutlined />
+                      Archive
+                    </Button>
+
+                    <Button type="text" danger>
+                      <DeleteOutlined />
+                      Delete
+                    </Button>
+                  </Space>
+                </Space>
+              }
             />
           </List.Item>
         )}
