@@ -3,7 +3,7 @@ import { Typography } from "antd"
 import { useRouteMatch } from "react-router-dom"
 import { QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS } from "../../queries"
 import Loader from "../Loader"
-import UserList from "../UserList"
+import UserList from "./UserList"
 import { List, Avatar } from "antd"
 import { ReadOutlined } from "@ant-design/icons"
 
@@ -64,7 +64,7 @@ export default function ClassOverview(props) {
 
       <br />
 
-      <UserList users={classDetails.pupils} color="green" />
+      <UserList users={classDetails.pupils} role="pupil" />
     </div>
   )
 }

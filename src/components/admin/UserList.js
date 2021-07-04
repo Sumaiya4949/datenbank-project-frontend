@@ -1,6 +1,14 @@
 import React from "react"
-import { UserOutlined } from "@ant-design/icons"
-import { List, Tag, Avatar, Typography, Descriptions } from "antd"
+import { UserOutlined, UserDeleteOutlined } from "@ant-design/icons"
+import {
+  List,
+  Tag,
+  Avatar,
+  Space,
+  Typography,
+  Descriptions,
+  Button,
+} from "antd"
 import { Collapse } from "antd"
 
 const { Panel } = Collapse
@@ -16,7 +24,11 @@ const gridParams = {
 }
 
 export default function UserList(props) {
-  const { users, color } = props
+  const { users, role } = props
+
+  const color =
+    role === "pupil" ? "green" : role === "teacher" ? "blue" : "crimson"
+
   return (
     <List
       grid={gridParams}
@@ -26,17 +38,18 @@ export default function UserList(props) {
           <Collapse>
             <Panel
               header={
-                <>
+                <Space>
                   <Avatar
                     icon={<UserOutlined />}
-                    style={{ backgroundColor: color }}
+                    style={{ backgroundColor: color, border: "none" }}
                   />
+
                   <Typography.Text>
-                    <b>
-                      &nbsp;&nbsp;&nbsp;{user.forename} {user.surname}
+                    <b style={{ marginLeft: "1rem" }}>
+                      {user.forename} {user.surname}
                     </b>
                   </Typography.Text>
-                </>
+                </Space>
               }
             >
               <Descriptions>
@@ -51,6 +64,12 @@ export default function UserList(props) {
                 </Descriptions.Item>
                 <Descriptions.Item label="Surname" span={3}>
                   {user.surname}
+                </Descriptions.Item>
+                <Descriptions.Item>
+                  <Button type="text" span={3} danger>
+                    <UserDeleteOutlined />
+                    Delete {role}
+                  </Button>
                 </Descriptions.Item>
               </Descriptions>
             </Panel>
