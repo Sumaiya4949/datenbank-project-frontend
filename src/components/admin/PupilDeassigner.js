@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react"
-import { Button, Modal, Form, notification } from "antd"
+import { Button, Modal, notification } from "antd"
 import {
   ExclamationCircleOutlined,
   UserDeleteOutlined,
@@ -15,8 +15,6 @@ export default function PupilDeassigner(props) {
   const { loggedInUser } = useContext(AuthContext)
 
   const [deassignPupil] = useMutation(MUTATION_DEASSIGN_PUPIL)
-
-  const [form] = Form.useForm()
 
   const deassignPupilOnConfirm = useCallback(async () => {
     Modal.confirm({
@@ -34,8 +32,6 @@ export default function PupilDeassigner(props) {
             refetchQueries: [{ query: QUERY_ADMIN_ALL_USERS }],
           })
 
-          form.resetFields()
-
           notification["success"]({
             message: "Successfully deassigned pupil",
           })
@@ -46,14 +42,7 @@ export default function PupilDeassigner(props) {
         }
       },
     })
-  }, [
-    pupil.forename,
-    pupil.surname,
-    pupil.id,
-    deassignPupil,
-    loggedInUser.id,
-    form,
-  ])
+  }, [pupil.forename, pupil.surname, pupil.id, deassignPupil, loggedInUser.id])
 
   return (
     <Button

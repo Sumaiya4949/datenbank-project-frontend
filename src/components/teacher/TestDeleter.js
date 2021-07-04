@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { Button, Modal, Form, notification } from "antd"
+import { Button, Modal, notification } from "antd"
 import { ExclamationCircleOutlined, DeleteOutlined } from "@ant-design/icons"
 import { useMutation } from "@apollo/client"
 import { MUTATION_DELETE_TEST } from "../../mutations"
@@ -9,8 +9,6 @@ export default function TestDeleter(props) {
   const { testId, subjectId, teacherId } = props
 
   const [deleteTest] = useMutation(MUTATION_DELETE_TEST)
-
-  const [form] = Form.useForm()
 
   const deleteTestOnConfirm = useCallback(async () => {
     Modal.confirm({
@@ -36,8 +34,6 @@ export default function TestDeleter(props) {
             ],
           })
 
-          form.resetFields()
-
           notification["success"]({
             message: "Successfully deleted test",
           })
@@ -48,7 +44,7 @@ export default function TestDeleter(props) {
         }
       },
     })
-  }, [deleteTest, teacherId, testId, subjectId, form])
+  }, [deleteTest, teacherId, testId, subjectId])
 
   return (
     <Button type="primary" danger shape="circle" onClick={deleteTestOnConfirm}>
