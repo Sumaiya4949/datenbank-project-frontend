@@ -9,10 +9,10 @@ import ClassCreator from "./ClassCreator"
 export default function AdminOverview() {
   const { loading, error, data } = useQuery(QUERY_ADMIN_ALL_USERS)
 
+  const { pupils, teachers, admins } = data || {}
+
   if (loading) return <Loader />
   if (error) return "Error"
-
-  const { pupils, teachers, admins } = data
 
   return (
     <>
@@ -20,6 +20,7 @@ export default function AdminOverview() {
         <UserCreator />
         <ClassCreator />
       </Space>
+
       <br />
       <br />
       <br />

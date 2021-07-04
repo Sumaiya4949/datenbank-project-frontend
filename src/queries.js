@@ -78,6 +78,17 @@ export const QUERY_ADMIN_ALL_USERS = gql`
   }
 `
 
+export const QUERY_ADMIN_ALL_TEACHERS = gql`
+  query AllTeachers {
+    teachers {
+      id
+      username
+      forename
+      surname
+    }
+  }
+`
+
 export const QUERY_ALL_CLASSES = gql`
   query Classes {
     classes {

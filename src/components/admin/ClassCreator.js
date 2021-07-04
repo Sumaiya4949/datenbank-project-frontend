@@ -30,7 +30,7 @@ export default function ClassCreator() {
       form.resetFields()
       setModalOpen(false)
       notification["success"]({
-        message: "Successfully created user",
+        message: "Successfully created class",
       })
     } catch (err) {
       notification["error"]({

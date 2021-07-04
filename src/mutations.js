@@ -87,3 +87,9 @@ export const MUTATION_CREATE_CLASS = gql`
     createClass(adminId: $adminId, class: $class)
   }
 `
+
+export const MUTATION_CREATE_SUBJECT = gql`
+  mutation CreateClass($adminId: ID!, $class: String!) {
+    createClass(adminId: $adminId, class: $class)
+  }
+`

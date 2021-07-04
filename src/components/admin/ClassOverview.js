@@ -4,8 +4,9 @@ import { useRouteMatch } from "react-router-dom"
 import { QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS } from "../../queries"
 import Loader from "../Loader"
 import UserList from "./UserList"
-import { List, Avatar } from "antd"
+import { List, Avatar, Space } from "antd"
 import { ReadOutlined } from "@ant-design/icons"
+import SubjectCreator from "./SubjectCreator"
 
 export default function ClassOverview(props) {
   const { params } = useRouteMatch()
@@ -27,6 +28,12 @@ export default function ClassOverview(props) {
   return (
     <div>
       <Typography.Title leve={2}>Class: {params.className}</Typography.Title>
+
+      <Space>
+        <SubjectCreator />
+      </Space>
+
+      <br />
       <br />
       <br />
 
