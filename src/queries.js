@@ -7,6 +7,7 @@ export const QUERY_PUPIL_CLASS_AND_SUBJECTS = gql`
       subjects {
         id
         name
+        className
       }
     }
   }
@@ -193,6 +194,17 @@ export const QUERY_ALL_SUBJECTS = gql`
       id
       name
       className
+    }
+  }
+`
+
+export const QUERY_GRADESHEET = gql`
+  query GradeSheet($pupilId: ID!) {
+    gradesheet(pupilId: $pupilId) {
+      subjectId
+      subjectName
+      className
+      avgGrade
     }
   }
 `
