@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { Button, Modal, Form } from "antd"
+import { Button, Modal, Form, notification } from "antd"
 import { PlusSquareOutlined } from "@ant-design/icons"
 import moment from "moment"
 import { useMutation } from "@apollo/client"
@@ -42,8 +42,14 @@ export default function TestCreator(props) {
 
       form.resetFields()
       setModalOpen(false)
+
+      notification["success"]({
+        message: "Successfully created a test",
+      })
     } catch (err) {
-      console.log(err.message)
+      notification["error"]({
+        message: "Failed to create test",
+      })
     }
   }, [form, subjectId, teacherId, createTest])
 
