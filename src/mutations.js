@@ -135,3 +135,9 @@ export const MUTATION_DEASSIGN_PUPIL = gql`
     deassignPupil(adminId: $adminId, pupilId: $pupilId)
   }
 `
+
+export const MUTATION_DELETE_TEST = gql`
+  mutation DeleteTest($teacherId: ID!, $testId: ID!) {
+    deleteTest(teacherId: $teacherId, testId: $testId)
+  }
+`

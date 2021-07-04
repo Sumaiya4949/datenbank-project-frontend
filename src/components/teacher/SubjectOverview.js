@@ -3,10 +3,11 @@ import { Typography, Row, Col, Statistic, Table, Space, Button } from "antd"
 import { useRouteMatch, Link } from "react-router-dom"
 import { QUERY_TEACHER_SUBJECT_OVERVIEW } from "../../queries"
 import TestCreator from "./TestCreator"
-import { DeleteOutlined, InfoOutlined } from "@ant-design/icons"
+import { InfoOutlined } from "@ant-design/icons"
 import Loader from "../Loader"
 import { useMemo } from "react"
 import TestInfoEditor from "./TestInfoEditor"
+import TestDeleter from "./TestDeleter"
 
 const testTableStaticColumns = [
   {
@@ -91,9 +92,11 @@ export default function SubjectOverview(props) {
               classLabel={className}
             />
 
-            <Button type="primary" danger shape="circle">
-              <DeleteOutlined />
-            </Button>
+            <TestDeleter
+              subjectId={subjectId}
+              teacherId={teacherId}
+              testId={record.id}
+            />
           </Space>
         ),
       },
