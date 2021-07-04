@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import { AuthContext } from "../../contexts"
 import AdminOverview from "./AdminOverview"
 import ClassOverview from "./ClassOverview"
+import SubjectsList from "./SubjectsList"
 
 export default function AdminHomePage() {
   const { loggedInUser } = useContext(AuthContext)
@@ -12,6 +13,11 @@ export default function AdminHomePage() {
       <Route path="/classes/:className">
         <ClassOverview adminId={loggedInUser.id} />
       </Route>
+
+      <Route exact path="/subjects">
+        <SubjectsList />
+      </Route>
+
       <Route>
         <AdminOverview />
       </Route>

@@ -183,3 +183,13 @@ export const QUERY_TEST_DETAILS = gql`
     }
   }
 `
+
+export const QUERY_ALL_SUBJECTS = gql`
+  query AllSubjects {
+    subjects {
+      id
+      name
+      className
+    }
+  }
+`

@@ -7,7 +7,7 @@ import { Menu } from "antd"
 import { useQuery } from "@apollo/client"
 import { QUERY_ALL_CLASSES } from "../../queries"
 import Loader from "../Loader"
-import { BlockOutlined } from "@ant-design/icons"
+import { BlockOutlined, ReadOutlined } from "@ant-design/icons"
 
 const { SubMenu } = Menu
 
@@ -16,11 +16,15 @@ export default function AppSideNavAdmin() {
 
   // const { id } = loggedInUser
 
-  const { loading, error, data } = useQuery(QUERY_ALL_CLASSES)
+  const {
+    loading: classesLoading,
+    error: errorLoadingClasses,
+    data: classesData,
+  } = useQuery(QUERY_ALL_CLASSES)
 
-  if (loading) return <Loader />
+  if (classesLoading) return <Loader />
 
-  if (error) return "Error"
+  if (errorLoadingClasses) return "Error"
 
   return (
     <AppSideNav
@@ -31,15 +35,16 @@ export default function AppSideNavAdmin() {
         <Link to="/">Overview</Link>
       </Menu.Item>
 
-      <SubMenu key="classes" icon={<BlockOutlined />} title="All Classes">
-        {loading && <Loader />}
+      <Menu.Item key="subjects" icon={<ReadOutlined />}>
+        <Link to="/subjects">All Subjects</Link>
+      </Menu.Item>
 
-        {!loading &&
-          data.classes.map((_class) => (
-            <Menu.Item key={_class.name}>
-              <Link to={`/classes/${_class.name}`}>{_class.name}</Link>
-            </Menu.Item>
-          ))}
+      <SubMenu key="classes" icon={<BlockOutlined />} title="All Classes">
+        {classesData.classes.map((_class) => (
+          <Menu.Item key={_class.name}>
+            <Link to={`/classes/${_class.name}`}>{_class.name}</Link>
+          </Menu.Item>
+        ))}
       </SubMenu>
     </AppSideNav>
   )
