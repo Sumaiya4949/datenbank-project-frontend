@@ -5,6 +5,7 @@ import { QUERY_TEST_DETAILS } from "../../queries"
 import Loader from "../Loader"
 import { useMemo } from "react"
 import ScoreChanger from "./ScoreChanger"
+import GradeInputFromFile from "./GradeInputFromFile"
 
 const pupilTableStaticColumns = [
   {
@@ -102,6 +103,9 @@ export default function TestDetails(props) {
 
       <br />
       <br />
+
+      <GradeInputFromFile testId={testId} />
+
       <br />
       <br />
 
