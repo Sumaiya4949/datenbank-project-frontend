@@ -51,11 +51,17 @@ export default function SubjectDetails(props) {
     date: new Date(parseInt(test.date, 10)).toLocaleDateString(),
   }))
 
+  const subjectName = data?.pupil?.subjects[0]?.name
+
   return (
     <>
       <Row gutter={16}>
         <Col span={12}>
-          <Statistic title="Subject" value={"Math"} className="statistic" />
+          <Statistic
+            title="Subject"
+            value={subjectName}
+            className="statistic"
+          />
         </Col>
 
         <Col span={12}>

@@ -30,6 +30,7 @@ export const QUERY_PUPIL_TESTS_OF_A_SUBJECT = gql`
       id
       subjects(id: $subjectId) {
         id
+        name
         tests {
           id
           name
