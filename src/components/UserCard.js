@@ -5,9 +5,9 @@ import {
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons"
-import studentImg from "../assets/images/student.jpeg"
-import adminImg from "../assets/images/admin.png"
-import teacherImg from "../assets/images/teacher.png"
+import studentImg from "../assets/images/student.jpg"
+import adminImg from "../assets/images/admin.jpg"
+import teacherImg from "../assets/images/teacher.jpg"
 import styles from "../styles/UserCard.module.css"
 import { useCallback, useMemo, useState } from "react"
 import UserInfoForm from "./forms/UserInfoForm"
@@ -85,6 +85,7 @@ export default function UserCard(props) {
       cover={
         <img
           alt="example"
+          style={{ maxHeight: "40vh" }}
           src={
             role === "pupil"
               ? studentImg
