@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useCallback, useEffect, useState } from "react"
+import { getPasswordHash } from "../utils"
 
 export default function useAuth() {
   const userLocal = localStorage.getItem("user")
@@ -25,10 +26,13 @@ export default function useAuth() {
 
   const login = useCallback(async function (role, username, password) {
     setRequesting(true)
+
+    const hash = getPasswordHash(password)
+
     try {
       const response = await axios.post(`/auth/login`, {
         username,
-        password,
+        password: hash,
         role,
       })
 

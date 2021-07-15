@@ -174,7 +174,7 @@ export default function ClassOverview(props) {
       <Typography.Title leve={2}>Class: {params.className}</Typography.Title>
 
       <Space>
-        <SubjectCreator />
+        <SubjectCreator classLabel={params.className} />
 
         <Button
           danger

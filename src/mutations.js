@@ -158,6 +158,15 @@ export const MUTATION_DELETE_TEACHER = gql`
     }
   }
 `
+export const MUTATION_DELETE_ADMIN = gql`
+  mutation DeleteAdmin($adminId: ID!, $id: ID!) {
+    response: deleteAdmin(adminId: $adminId, id: $id) {
+      success
+      message
+    }
+  }
+`
+
 export const MUTATION_DELETE_CLASS = gql`
   mutation DeleteClass($adminId: ID!, $class: String!) {
     deleteClass(adminId: $adminId, class: $class)

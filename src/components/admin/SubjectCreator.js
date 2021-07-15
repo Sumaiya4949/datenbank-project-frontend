@@ -4,7 +4,12 @@ import { FileAddOutlined } from "@ant-design/icons"
 import { useMutation, useQuery } from "@apollo/client"
 import { MUTATION_CREATE_SUBJECT } from "../../mutations"
 import { AuthContext } from "../../contexts"
-import { QUERY_ADMIN_ALL_TEACHERS, QUERY_ALL_CLASSES } from "../../queries"
+import {
+  QUERY_ADMIN_ALL_TEACHERS,
+  QUERY_ALL_CLASSES,
+  QUERY_ALL_SUBJECTS,
+  QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+} from "../../queries"
 import Loader from "../Loader"
 
 export default function SubjectCreator(props) {
@@ -35,7 +40,18 @@ export default function SubjectCreator(props) {
           name,
           class: classLabel,
         },
-        refetchQueries: [{ query: QUERY_ALL_CLASSES }],
+        refetchQueries: [
+          { query: QUERY_ALL_CLASSES },
+          {
+            query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+            variables: {
+              name: classLabel,
+            },
+          },
+          {
+            query: QUERY_ALL_SUBJECTS,
+          },
+        ],
       })
 
       form.resetFields()

@@ -20,9 +20,11 @@ export default function PupilOverview(props) {
 
   const { appearsIn, subjects, className } = data?.pupil
 
-  const avgGrade =
-    appearsIn.map((item) => item.score).reduce((x, y) => x + y) /
-    appearsIn.length
+  const totalGrade = appearsIn
+    .map((item) => item.score)
+    .reduce((x, y) => x + y, 0)
+
+  const avgGrade = totalGrade / appearsIn.length
 
   return (
     <Descriptions
@@ -57,7 +59,7 @@ export default function PupilOverview(props) {
         {appearsIn.length || 0}
       </Item>
       <Item label="Average Grade" span={1}>
-        {avgGrade}%
+        {appearsIn.length === 0 ? "Not available" : `${avgGrade}%`}
       </Item>
     </Descriptions>
   )

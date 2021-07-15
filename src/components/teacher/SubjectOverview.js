@@ -30,6 +30,11 @@ const testTableStaticColumns = [
 
 const pupilTableColumns = [
   {
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
+  },
+  {
     title: "Username",
     dataIndex: "username",
     key: "username",
@@ -114,7 +119,7 @@ export default function SubjectOverview(props) {
       avgGrade: pupil.appearsIn
         .filter((test) => test.subjectId === subjectId)
         .map((test) => test.score)
-        .reduce((x, y) => (x + y) / 2),
+        .reduce((x, y) => (x + y) / 2, 0),
     }
   })
 

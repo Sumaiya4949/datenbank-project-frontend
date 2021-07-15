@@ -4,7 +4,10 @@ import { PaperClipOutlined } from "@ant-design/icons"
 import { useMutation, useReactiveVar } from "@apollo/client"
 import { MUTATION_ASSIGN_PUPIL } from "../../mutations"
 import { AuthContext } from "../../contexts"
-import { QUERY_ADMIN_ALL_USERS } from "../../queries"
+import {
+  QUERY_ADMIN_ALL_USERS,
+  QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+} from "../../queries"
 import { allClassesVar } from "../../global-states"
 
 export default function PupilAssigner(props) {
@@ -30,7 +33,15 @@ export default function PupilAssigner(props) {
           pupilId: pupil.id,
           class: className,
         },
-        refetchQueries: [{ query: QUERY_ADMIN_ALL_USERS }],
+        refetchQueries: [
+          { query: QUERY_ADMIN_ALL_USERS },
+          {
+            query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+            variables: {
+              name: pupilClass,
+            },
+          },
+        ],
       })
 
       form.resetFields()
@@ -43,7 +54,7 @@ export default function PupilAssigner(props) {
         message: err.message,
       })
     }
-  }, [form, assignPupil, loggedInUser.id, pupil.id])
+  }, [form, assignPupil, loggedInUser.id, pupil.id, pupilClass])
 
   return (
     <>

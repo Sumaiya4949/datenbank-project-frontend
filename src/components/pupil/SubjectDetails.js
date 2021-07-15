@@ -24,7 +24,7 @@ const columns = [
     title: "Grade",
     dataIndex: "score",
     key: "score",
-    render: (value) => `${value}%`,
+    render: (value) => (value === null ? "Not available" : `${value}%`),
   },
 ]
 

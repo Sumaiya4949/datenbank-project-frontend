@@ -5,7 +5,11 @@ import {
   UserDeleteOutlined,
 } from "@ant-design/icons"
 import { useMutation } from "@apollo/client"
-import { MUTATION_DELETE_PUPIL, MUTATION_DELETE_TEACHER } from "../../mutations"
+import {
+  MUTATION_DELETE_ADMIN,
+  MUTATION_DELETE_PUPIL,
+  MUTATION_DELETE_TEACHER,
+} from "../../mutations"
 import { QUERY_ADMIN_ALL_USERS } from "../../queries"
 import { AuthContext } from "../../contexts"
 
@@ -21,7 +25,7 @@ export default function UserDeleter(props) {
       ? MUTATION_DELETE_PUPIL
       : userRole === "teacher"
       ? MUTATION_DELETE_TEACHER
-      : null
+      : MUTATION_DELETE_ADMIN
   )
 
   const deleteUserOnConfirm = useCallback(async () => {
@@ -60,6 +64,8 @@ export default function UserDeleter(props) {
       },
     })
   }, [user, deleteUser, userRole, adminId])
+
+  if (userRole === "admin") return false
 
   return (
     <Button type="text" danger onClick={deleteUserOnConfirm}>
