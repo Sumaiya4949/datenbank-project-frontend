@@ -27,21 +27,31 @@ export default function PupilAssigner(props) {
     try {
       const { className } = await form.validateFields()
 
+      const refetchQueries = [
+        { query: QUERY_ADMIN_ALL_USERS },
+        {
+          query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+          variables: {
+            name: className,
+          },
+        },
+      ]
+
+      if (pupilClass)
+        refetchQueries.push({
+          query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
+          variables: {
+            name: pupilClass,
+          },
+        })
+
       await assignPupil({
         variables: {
           adminId: loggedInUser.id,
           pupilId: pupil.id,
           class: className,
         },
-        refetchQueries: [
-          { query: QUERY_ADMIN_ALL_USERS },
-          {
-            query: QUERY_CLASS_WITH_SUBJECTS_AND_PUPILS,
-            variables: {
-              name: pupilClass,
-            },
-          },
-        ],
+        refetchQueries,
       })
 
       form.resetFields()
