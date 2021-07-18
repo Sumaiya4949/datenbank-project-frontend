@@ -195,6 +195,10 @@ export const QUERY_ALL_SUBJECTS = gql`
       id
       name
       className
+      tests {
+        id
+      }
+      isArchived
     }
   }
 `

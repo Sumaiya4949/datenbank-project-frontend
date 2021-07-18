@@ -15,7 +15,7 @@ export default function AdminHomePage() {
       </Route>
 
       <Route exact path="/subjects">
-        <SubjectsList />
+        <SubjectsList adminId={loggedInUser.id} />
       </Route>
 
       <Route>
