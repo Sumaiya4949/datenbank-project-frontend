@@ -27,10 +27,10 @@ export default function LandingPage() {
     <div className={styles.LandingPage}>
       <header className={styles.header}>
         <img src={logo} className={styles.logo} alt="logo" />
-        <h2>Grading System Management</h2>
+        <h2>Grading Management System</h2>
 
         <p className={styles.description}>
-          A full stack web application for digital management of students'
+          A full stack web application for digital management of student's
           grades and subjects in different classes in a school, along with
           additional management functionalities of admins and teachers.
         </p>

@@ -53,7 +53,6 @@ const pupilTableColumns = [
     title: "Avg. Grade",
     dataIndex: "avgGrade",
     key: "avgGrade",
-    render: (grade) => `${grade}%`,
   },
 ]
 
@@ -113,13 +112,18 @@ export default function SubjectOverview(props) {
   if (error) return "Error"
 
   const pupilsWithAvgGrade = pupils.map((pupil) => {
+    const testsForThisSubject = pupil.appearsIn
+      .filter((test) => test.subjectId === subjectId)
+      .map((test) => test.score)
+
     return {
       ...pupil,
       key: pupil.id,
-      avgGrade: pupil.appearsIn
-        .filter((test) => test.subjectId === subjectId)
-        .map((test) => test.score)
-        .reduce((x, y) => (x + y) / 2, 0),
+      avgGrade: testsForThisSubject?.length
+        ? testsForThisSubject.reduce((x, y) => x + y, 0) /
+            testsForThisSubject.length +
+          "%"
+        : "No score",
     }
   })
 
